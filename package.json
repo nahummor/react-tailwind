@@ -11,8 +11,8 @@
         "react-scripts": "3.4.1"
     },
     "scripts": {
-        "start": "react-scripts start && npm run watch:css ",
-        "build": "react-scripts build && npm run build:css",
+        "start": "react-scripts start && npm run watch:css",
+        "build": "set NODE_ENV=production && react-scripts build && npm run build:css",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "build:css": "postcss src/styles/tailwind.css -o src/styles/app.css",

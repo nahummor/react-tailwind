@@ -2,22 +2,23 @@
 @tailwind components;
 
 .app-button {
-   @apply bg-indigo-600 text-gray-400 font-medium text-lg p-4 mt-3 rounded-md shadow-md w-full;
+    @apply bg-indigo-600 text-gray-400 font-medium text-lg p-4 mt-3 rounded-md shadow-md w-full;
 }
 
 .app-button:hover {
-   @apply bg-indigo-400 text-gray-800;
+    @apply bg-indigo-400 text-gray-800;
 }
 
 .app-button:focus {
-   @apply outline-none shadow-outline;
+    @apply outline-none shadow-outline;
 }
 
 .app-button:active {
-   @apply bg-indigo-200 font-bold;
+    @apply bg-indigo-200 font-bold;
 }
 
 .form-label {
-   @apply block text-gray-700 text-sm font-bold mb-2 text-right;
+    @apply block text-gray-700 text-sm font-bold mb-2 text-right;
 }
+
 @tailwind utilities;

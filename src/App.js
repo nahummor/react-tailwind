@@ -2,6 +2,8 @@ import React from 'react';
 
 import './styles/app.css';
 import Card from './components/Card/Card';
+import ImageCard from './components/ImageCard/ImageCard';
+import { CameraIcon, EditPencilIcon } from './components/Icons/Icons';
 
 function App() {
    const onClickHandler = (event) => {
@@ -36,10 +38,14 @@ function App() {
                   id='btn-3'
                   onClick={onClickHandler}
                   className='app-button'>
-                  Button 3
+                  <div className='flex flex-row justify-center items-center'>
+                     <EditPencilIcon />
+                     <span className='mx-2'> Button 3</span>
+                  </div>
                </button>
             </div>
          </Card>
+
          <Card title='פרטי עובד' subtitle='add new data'>
             <label className='form-label' htmlFor='firstName'>
                שם פרטי
@@ -64,8 +70,29 @@ function App() {
                type='text'
                placeholder='שם משפחה'
             />
-            <button className='app-button'>שמירה</button>
+            <button className='app-button'>
+               <span>שמירה</span> 😄
+            </button>
          </Card>
+
+         <ImageCard
+            title={'Test 1234'}
+            imageUrl={
+               'https://images.unsplash.com/photo-1585128903994-9788298932a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
+            }>
+            <p className='text-gray-700 text-center antialiased'>
+               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam,
+               deleniti sunt. Neque culpa, quas cupiditate laborum minus facilis
+               ex. Aliquam repudiandae magnam sed officia cupiditate dolores
+               tenetur, excepturi nostrum quia?
+            </p>
+            <button className='app-button'>
+               <div className='flex flex-row justify-center items-center'>
+                  <CameraIcon />
+                  <span className='mx-2'>שמירה</span>
+               </div>
+            </button>
+         </ImageCard>
       </div>
    );
 }

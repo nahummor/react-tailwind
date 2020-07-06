@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/app.css';
 
 const Card = ({ title, subtitle, children }) => {
    return (
