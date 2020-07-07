@@ -16,7 +16,7 @@ export const CheckmarkIcon = () => {
       <svg
          className='w-6 h-6'
          xmlns='http://www.w3.org/2000/svg'
-         viewBox='0 0 20 20'>
+         viewBox='0 0  24 24'>
          <path d='M0 11l2-2 5 5L18 3l2 2L7 18z' />
       </svg>
    );
@@ -25,10 +25,43 @@ export const CheckmarkIcon = () => {
 export const EditPencilIcon = () => {
    return (
       <svg
-         className='w-5 h-5'
+         className='w-6 h-6'
+         xmlns='http://www.w3.org/2000/svg'
+         viewBox='0 0  24 24'>
+         <path d='M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z' />
+      </svg>
+   );
+};
+
+export const MenuIcon = () => {
+   return (
+      <svg
+         className='w-8 h-8 fill-current'
+         xmlns='http://www.w3.org/2000/svg'
+         viewBox='0 0 24 24'>
+         <path d='M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z' />
+      </svg>
+   );
+};
+
+export const XIcon = () => {
+   return (
+      <svg
+         className='w-8 h-8 fill-current'
+         xmlns='http://www.w3.org/2000/svg'
+         viewBox='0 0 24 24'>
+         <path d='M16.24 14.83a1 1 0 01-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 01-1.41-1.41L10.59 12 7.76 9.17a1 1 0 011.41-1.41L12 10.59l2.83-2.83a1 1 0 011.41 1.41L13.41 12l2.83 2.83z' />
+      </svg>
+   );
+};
+
+export const DropDownIcon = () => {
+   return (
+      <svg
+         className='w-6 h-6 fill-current'
          xmlns='http://www.w3.org/2000/svg'
          viewBox='0 0 20 20'>
-         <path d='M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z' />
+         <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
       </svg>
    );
 };

@@ -654,7 +654,7 @@ video {
   text-align: right;
 }
 
-.badge {
+.rounded-badge {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   padding-top: 0.25rem;
@@ -667,6 +667,21 @@ video {
   color: rgba(40, 94, 97, var(--text-opacity));
   font-size: 0.75rem;
   border-radius: 9999px;
+  font-weight: 600;
+}
+
+.badge {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  --bg-opacity: 1;
+  background-color: #7f9cf5;
+  background-color: rgba(127, 156, 245, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #faf089;
+  color: rgba(250, 240, 137, var(--text-opacity));
+  font-size: 1.125rem;
   font-weight: 600;
 }
 
