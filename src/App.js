@@ -24,6 +24,10 @@ function App() {
       setMenuOpen((prevValue) => !prevValue);
    };
 
+   const onListValueChange = (value) => {
+      console.log('List value: ', value);
+   };
+
    return (
       <div className='flex flex-col'>
          <div className='mb-2'>
@@ -148,7 +152,21 @@ function App() {
                   placeholder='שם משפחה'
                />
 
-               <DropList data={['באר שבע', 'תל אביב', 'ירושלים']} />
+               <DropList
+                  title={'עיר'}
+                  placeHolder='נא לבחור עיר'
+                  defaultValue={'באר שבע'}
+                  data={['באר שבע', 'תל אביב', 'ירושלים']}
+                  onValueChange={onListValueChange}
+               />
+
+               <DropList
+                  title={'סטטוס'}
+                  placeHolder='נא לבחור סטטוס'
+                  defaultValue={''}
+                  data={['נותק', 'נעול', 'פעיל']}
+                  onValueChange={onListValueChange}
+               />
 
                <button className='app-button'>
                   <span>שמירה</span> 😄
