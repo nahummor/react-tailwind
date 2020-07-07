@@ -83,8 +83,6 @@ function App() {
             <p className='text-gray-700 text-center antialiased'>
                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam,
                deleniti sunt. Neque culpa, quas cupiditate laborum minus facilis
-               ex. Aliquam repudiandae magnam sed officia cupiditate dolores
-               tenetur, excepturi nostrum quia?
             </p>
             <button className='app-button'>
                <div className='flex flex-row justify-center items-center'>
