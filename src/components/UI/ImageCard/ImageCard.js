@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/app.css';
+// import '../../styles/app.css';
 import { CameraIcon, EditPencilIcon } from '../Icons/Icons';
 
 const ImageCard = ({ title, imageUrl, children }) => {

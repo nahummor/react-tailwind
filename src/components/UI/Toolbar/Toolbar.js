@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { MenuIcon, XIcon } from '../../components/Icons/Icons';
-import logo from '../../assets/br7_logo.png';
+import { MenuIcon, XIcon } from '../Icons/Icons';
+import logo from '../../../assets/br7_logo.png';
 
 const Toolbar = () => {
    const [menuOpen, setMenuOpen] = useState(false);
@@ -65,13 +65,16 @@ const Toolbar = () => {
                   className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'>
                   component 2
                </a>
-               <a
-                  href={'/'}
-                  className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'>
-                  component 3
-               </a>
+               <NavLink
+                  className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'
+                  activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1'
+                  exact
+                  to='/test1'>
+                  Test 1
+               </NavLink>
 
                <NavLink
+                  className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'
                   activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1'
                   exact
                   to='/'>

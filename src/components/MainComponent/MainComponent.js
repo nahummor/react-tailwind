@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Card from '../Card/Card';
-import ImageCard from '../ImageCard/ImageCard';
-import { CameraIcon, EditPencilIcon } from '../Icons/Icons';
+import Card from '../UI/Card/Card';
+import ImageCard from '../UI/ImageCard/ImageCard';
+import { CameraIcon, EditPencilIcon } from '../UI/Icons/Icons';
 import DropList from '../DropList/DropList';
 
 const MainComponent = () => {
