@@ -9,7 +9,7 @@ function App() {
    console.log('App start...');
 
    return (
-      <div className='flex flex-col'>
+      <div className='flex flex-col  bg-gray-100 h-screen'>
          <Toolbar />
          <AppRoutes />
       </div>

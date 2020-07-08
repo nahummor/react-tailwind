@@ -3,7 +3,7 @@ import React from 'react';
 import Card from '../UI/Card/Card';
 import ImageCard from '../UI/ImageCard/ImageCard';
 import { CameraIcon, EditPencilIcon } from '../UI/Icons/Icons';
-import DropList from '../DropList/DropList';
+import DropList from '../UI/DropList/DropList';
 
 const MainComponent = () => {
    const onClickHandler = (event) => {
@@ -19,7 +19,7 @@ const MainComponent = () => {
       <div
          dir='rtl'
          className='flex flex-col justify-around  
-                    items-center bg-gray-100 sm:flex-row'>
+                    items-center sm:flex-row p-2'>
          <Card title='Main Title' subtitle='sub title'>
             <div className='flex flex-col'>
                <button

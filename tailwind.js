@@ -6,6 +6,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            height: theme => ({
+                "screen/2": "50vh",
+            }),
             colors: {
                 'facebook-blue': '#3b5998',
                 'ios-green': '#53d769'
@@ -26,6 +29,9 @@ module.exports = {
             }
         },
     },
-    variants: {},
+    variants: {
+        borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'active', 'focus-within'],
+    },
     plugins: [],
 }
