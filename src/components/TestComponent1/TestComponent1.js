@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './TestComponent1.css';
+import Calendar from '../UI/Calendar/Calendar';
 
 const TestComponent1 = () => {
    const [bikeSelected, setBikeSelected] = useState(false);
@@ -42,6 +43,7 @@ const TestComponent1 = () => {
                <form>
                   <div className='w-3/12 flex flex-col border-b border-blue-900'>
                      <p className='text-sm font-semibold'>check box</p>
+
                      <label htmlFor='vehicle1'>
                         <input
                            type='checkbox'
@@ -205,7 +207,7 @@ const TestComponent1 = () => {
                        sm:flex-row justify-center items-center
                        px-2 bg-gray-400 h-full rounded-lg'>
             <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
-               1111111
+               <Calendar />
             </div>
             <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
                2222222
