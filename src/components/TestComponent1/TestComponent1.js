@@ -5,10 +5,16 @@ const TestComponent1 = () => {
    const [bikeSelected, setBikeSelected] = useState(false);
    const [likeRun, setLikeRun] = useState(false);
    const [age, setAge] = useState('30');
+   const [done, setDone] = useState(false);
 
    const onAgeChangeHandler = (event) => {
       setAge(event.target.value);
       console.log('Age: ', event.target.value);
+   };
+
+   const onDoneChangeHandler = (event) => {
+      setDone(event.target.checked);
+      console.log('Done: ', event.target.checked);
    };
 
    return (
@@ -35,6 +41,7 @@ const TestComponent1 = () => {
                        w-full rounded-lg'>
                <form>
                   <div className='w-3/12 flex flex-col border-b border-blue-900'>
+                     <p className='text-sm font-semibold'>check box</p>
                      <label htmlFor='vehicle1'>
                         <input
                            type='checkbox'
@@ -100,6 +107,7 @@ const TestComponent1 = () => {
                      dir='rtl'
                      className='w-3/12 flex flex-col border-b-2 border-blue-900'>
                      <p className='text-xl font-semibold'>בחר גיל</p>
+                     <span className='text-sm'>(radio buttons group)</span>
 
                      <label className='font-semibold flex justify-start items-center'>
                         <div
@@ -155,6 +163,36 @@ const TestComponent1 = () => {
                            61 - 100
                         </label>
                      </div>
+                  </div>
+
+                  <div className='w-3/12 border-b-2 border-blue-900'>
+                     {/* Toggle Button */}
+                     <p className='text-sm font-semibold'>Toggle Button</p>
+                     <p className='text-sm font-semibold'>האם לבצע</p>
+                     <label
+                        htmlFor='toogleA'
+                        className='flex items-center cursor-pointer'>
+                        <div className='mr-3 text-gray-700 font-medium'>לא</div>
+                        {/* toggle */}
+                        <div className='relative'>
+                           {/* input */}
+                           <input
+                              id='toogleA'
+                              type='checkbox'
+                              checked={done}
+                              onChange={onDoneChangeHandler}
+                              className='hidden'
+                           />
+
+                           {/* line */}
+                           <div className='w-10 h-4 bg-gray-500 rounded-lg shadow-inner'></div>
+                           {/* dot */}
+                           <div className='toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0'></div>
+                        </div>
+
+                        {/* label */}
+                        <div className='ml-3 text-gray-700 font-medium'>כן</div>
+                     </label>
                   </div>
                </form>
             </div>
