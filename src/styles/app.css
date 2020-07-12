@@ -8463,6 +8463,30 @@ video {
   height: 50vh;
 }
 
+.h-screen\/2\.5 {
+  height: 40vh;
+}
+
+.h-screen\/3 {
+  height: 33.333333333333336vh;
+}
+
+.h-screen\/4 {
+  height: 25vh;
+}
+
+.h-screen\/5 {
+  height: 20vh;
+}
+
+.h-screen\/6 {
+  height: 16.666666666666668vh;
+}
+
+.h-screen\/10 {
+  height: 10vh;
+}
+
 .text-xs {
   font-size: 0.75rem;
 }
@@ -26195,6 +26219,30 @@ video {
 
   .sm\:h-screen\/2 {
     height: 50vh;
+  }
+
+  .sm\:h-screen\/2\.5 {
+    height: 40vh;
+  }
+
+  .sm\:h-screen\/3 {
+    height: 33.333333333333336vh;
+  }
+
+  .sm\:h-screen\/4 {
+    height: 25vh;
+  }
+
+  .sm\:h-screen\/5 {
+    height: 20vh;
+  }
+
+  .sm\:h-screen\/6 {
+    height: 16.666666666666668vh;
+  }
+
+  .sm\:h-screen\/10 {
+    height: 10vh;
   }
 
   .sm\:text-xs {
@@ -43932,6 +43980,30 @@ video {
     height: 50vh;
   }
 
+  .md\:h-screen\/2\.5 {
+    height: 40vh;
+  }
+
+  .md\:h-screen\/3 {
+    height: 33.333333333333336vh;
+  }
+
+  .md\:h-screen\/4 {
+    height: 25vh;
+  }
+
+  .md\:h-screen\/5 {
+    height: 20vh;
+  }
+
+  .md\:h-screen\/6 {
+    height: 16.666666666666668vh;
+  }
+
+  .md\:h-screen\/10 {
+    height: 10vh;
+  }
+
   .md\:text-xs {
     font-size: 0.75rem;
   }
@@ -61667,6 +61739,30 @@ video {
     height: 50vh;
   }
 
+  .lg\:h-screen\/2\.5 {
+    height: 40vh;
+  }
+
+  .lg\:h-screen\/3 {
+    height: 33.333333333333336vh;
+  }
+
+  .lg\:h-screen\/4 {
+    height: 25vh;
+  }
+
+  .lg\:h-screen\/5 {
+    height: 20vh;
+  }
+
+  .lg\:h-screen\/6 {
+    height: 16.666666666666668vh;
+  }
+
+  .lg\:h-screen\/10 {
+    height: 10vh;
+  }
+
   .lg\:text-xs {
     font-size: 0.75rem;
   }
@@ -79400,6 +79496,30 @@ video {
 
   .xl\:h-screen\/2 {
     height: 50vh;
+  }
+
+  .xl\:h-screen\/2\.5 {
+    height: 40vh;
+  }
+
+  .xl\:h-screen\/3 {
+    height: 33.333333333333336vh;
+  }
+
+  .xl\:h-screen\/4 {
+    height: 25vh;
+  }
+
+  .xl\:h-screen\/5 {
+    height: 20vh;
+  }
+
+  .xl\:h-screen\/6 {
+    height: 16.666666666666668vh;
+  }
+
+  .xl\:h-screen\/10 {
+    height: 10vh;
   }
 
   .xl\:text-xs {

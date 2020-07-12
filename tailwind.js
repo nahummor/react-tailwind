@@ -8,6 +8,12 @@ module.exports = {
         extend: {
             height: theme => ({
                 "screen/2": "50vh",
+                "screen/2.5": "40vh",
+                'screen/3': '33.333333333333336vh',
+                "screen/4": "25vh",
+                "screen/5": "20vh",
+                "screen/6": "16.666666666666668vh",
+                "screen/10": "10vh",
             }),
             colors: {
                 'facebook-blue': '#3b5998',

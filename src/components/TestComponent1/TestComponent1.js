@@ -18,20 +18,27 @@ const TestComponent1 = () => {
       console.log('Done: ', event.target.checked);
    };
 
+   const onMainDivClick = (event) => {
+      console.log(event.target.id);
+      console.log(event.target.innerText);
+   };
+
    return (
       <div className='flex flex-col p-2 h-full'>
          <div className='flex flex-col h-full sm:flex-row justify-around'>
             <div
+               id='main-div'
+               onClick={onMainDivClick}
                className='p-2 bg-gray-500  h-full sm:h-screen/2
                            w-full rounded-lg text-center'>
-               <p className='text-6xl bg-blue-100 rounded-lg'>
-                  Test component 1234
+               <p id='p1' className='text-6xl bg-blue-100 rounded-lg'>
+                  Test component 1234 Text 6xl
                </p>
-               <p className='text-4xl bg-blue-200 rounded-lg my-2'>
-                  Test component 1234
+               <p id='p2' className='text-4xl bg-blue-200 rounded-lg my-2'>
+                  Test component 1234 Text 4xl
                </p>
-               <p className='text-xs bg-blue-300 rounded-lg'>
-                  Test component 1234
+               <p id='p3' className='text-xs bg-blue-300 rounded-lg'>
+                  Test component 1234 Text xs
                </p>
             </div>
 
