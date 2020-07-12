@@ -13,22 +13,23 @@ import {
 const Calendar = () => {
    const [lines, setLines] = useState(null);
    const [today, setToday] = useState(moment(new Date()));
+   const [selectedYear, setSelectedYear] = useState(moment().year());
 
    console.log('Init Calendar....');
+
    useEffect(() => {
       moment.updateLocale('he', localHe);
-      var a = moment.duration(1, 'days').humanize();
-      var b = moment.duration(1, 'week').humanize();
-      console.log(moment.months());
-      console.log(moment.weekdays());
+      //   let a = moment.duration(1, 'days').humanize();
+      //   let b = moment.duration(1, 'week').humanize();
+      //   console.log(moment.months());
+      //   console.log(moment.weekdays());
 
-      console.log(a);
-      console.log(b);
+      //   console.log(a);
+      //   console.log(b);
    }, []);
 
    const createButtons = useCallback(
       (date) => {
-         console.log('Create buttons.....');
          // היום בשבוע שהחודש מתחיל
          const temp = `1-${date.month() + 1}-${date.year()}`;
          const dayOfWeek = moment(temp, 'DD-MM-YYYY').day(); // sunday = 0
@@ -118,10 +119,42 @@ const Calendar = () => {
 
    const onTodayClickHandler = () => {
       setToday(moment());
+      // set month drop list with the today month
+   };
+
+   const onInputYearChange = (event) => {
+      if (event.target.value.length > 3) {
+         setToday(
+            moment(
+               `${+event.target.value}-${today.month() + 1}-${today.date()}`,
+               'yyyy-MM-DD'
+            )
+         );
+      }
+      setSelectedYear(event.target.value);
+   };
+
+   const onYearPlusHandler = () => {
+      setToday(moment(today).add(1, 'Y'));
+      setSelectedYear((prev) => ++prev);
+   };
+
+   const onYearMinusHandler = () => {
+      setToday(moment(today).subtract(1, 'Y'));
+      setSelectedYear((prev) => --prev);
+   };
+
+   const onMonthChange = (event) => {
+      setToday(
+         moment(
+            `${today.date()}-${+event.target.value + 1}-${today.year()}`,
+            'DD-MM-yyyy'
+         )
+      );
    };
 
    return (
-      <div className='bg-white rounded-lg'>
+      <div className='bg-white rounded-lg p-1'>
          <div className='flex flex-row justify-center items-center p-1'>
             <button
                onClick={onPreviousMonthHandler}
@@ -151,49 +184,58 @@ const Calendar = () => {
             <div>ש</div>
          </div>
          {lines}
-         <div className='flex flex-row justify-center'>
+
+         <div className='flex flex-row justify-evenly items-center'>
             <button
                onClick={onTodayClickHandler}
-               className='bg-indigo-500 text-gray-400 h-10 mx-1 mt-1
-                          font-medium rounded-md shadow-md w-3/6'>
+               className='bg-indigo-500 text-gray-400 h-7 mx-1 mt-1
+                          font-medium rounded-md shadow-md w-24'>
                היום
             </button>
-         </div>
-         <div className='flex flex-row justify-end items-center'>
-            <button
-               className='ml-2 bg-indigo-500 text-gray-400 h-7
+            <div className='flex flex-row justify-end items-center'>
+               <button
+                  onClick={onYearMinusHandler}
+                  title='חיסור שנה'
+                  className='ml-2 bg-indigo-500 text-gray-400 h-7
                          font-medium rounded-md shadow-md w-6'>
-               <MinusIcon />
-            </button>
-            <button
-               className='ml-2 bg-indigo-500 text-gray-400 h-7
+                  <MinusIcon />
+               </button>
+               <button
+                  onClick={onYearPlusHandler}
+                  title='הוספת שנה'
+                  className='ml-2 mr-1 bg-indigo-500 text-gray-400 h-7
                          font-medium rounded-md shadow-md w-6'>
-               <PlusIcon />
-            </button>
-            <input
-               type='text'
-               className='border border-gray-400 rounded 
+                  <PlusIcon />
+               </button>
+               <input
+                  type='number'
+                  placeholder='שנה'
+                  value={selectedYear}
+                  onChange={onInputYearChange}
+                  className='border border-gray-400 rounded shadow h-8 text-right
                           focus:outline-none focus:border-gray-600 
-                          w-32 text-gray-700 font-semibold'
-            />
-
+                          w-16 text-gray-700 font-semibold'
+               />
+            </div>
             <div className='inline-block relative w-40'>
+               <div
+                  className='pointer-events-none absolute inset-y-0 
+                             flex items-center px-2 text-gray-700'>
+                  <DropDownIcon />
+               </div>
                <select
-                  defaultValue={moment.months()[today.month()]}
-                  className='block appearance-none w-full bg-white border border-gray-400 
-                             hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight
-                             focus:outline-none focus:shadow-outline'>
+                  onChange={onMonthChange}
+                  dir='rtl'
+                  defaultValue={today.month()}
+                  className='block appearance-none w-full bg-white border border-gray-400 h-8
+                             hover:border-gray-500 px-4 rounded shadow leading-tight
+                             focus:outline-none focus:shadow-outline cursor-pointer'>
                   {moment.months().map((month, index) => (
-                     <option key={index} value={month}>
+                     <option key={index} value={index}>
                         {month}
                      </option>
                   ))}
                </select>
-               <div
-                  className='pointer-events-none absolute inset-y-0 
-                                   right-0 flex items-center px-2 text-gray-700'>
-                  <DropDownIcon />
-               </div>
             </div>
          </div>
       </div>
