@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './TestComponent1.css';
 import Calendar from '../UI/Calendar/Calendar';
+import ToggleButton from '../UI/ToggleButton/ToggleButton';
 
 const TestComponent1 = () => {
    const [bikeSelected, setBikeSelected] = useState(false);
    const [likeRun, setLikeRun] = useState(false);
    const [age, setAge] = useState('30');
-   const [done, setDone] = useState(false);
 
    const onAgeChangeHandler = (event) => {
       setAge(event.target.value);
       console.log('Age: ', event.target.value);
    };
 
-   const onDoneChangeHandler = (event) => {
-      setDone(event.target.checked);
-      console.log('Done: ', event.target.checked);
-   };
-
    const onMainDivClick = (event) => {
       console.log(event.target.id);
       console.log(event.target.innerText);
+   };
+
+   const onCalendarDateChange = useCallback((date) => {
+      console.log(date);
+   }, []);
+
+   const onToggleValueChange = (value) => {
+      console.log(value);
    };
 
    return (
@@ -143,7 +146,7 @@ const TestComponent1 = () => {
                               <path d='M243.19 182.86L356.32 69.73a31.98 31.98 0 000-45.25L341.24 9.4a31.98 31.98 0 00-45.25 0L182.86 122.53 69.73 9.37a31.98 31.98 0 00-45.25 0L9.38 24.46a31.99 31.99 0 000 45.25l113.15 113.15L9.4 295.99a31.98 31.98 0 000 45.25l15.08 15.08a31.98 31.98 0 0045.25 0l113.13-113.13 113.13 113.13a31.99 31.99 0 0045.25 0l15.08-15.08a31.99 31.99 0 000-45.25zm0 0' />
                            </svg>
                         </div>
-                        <span> 0 - 30</span>
+                        <span>0 - 30</span>
                      </label>
 
                      <div>
@@ -173,36 +176,14 @@ const TestComponent1 = () => {
                         </label>
                      </div>
                   </div>
-
-                  <div className='w-3/12 border-b-2 border-blue-900'>
-                     {/* Toggle Button */}
-                     <p className='text-sm font-semibold'>Toggle Button</p>
-                     <p className='text-sm font-semibold'>האם לבצע</p>
-                     <label
-                        htmlFor='toogleA'
-                        className='flex items-center cursor-pointer'>
-                        <div className='mr-3 text-gray-700 font-medium'>לא</div>
-                        {/* toggle */}
-                        <div className='relative'>
-                           {/* input */}
-                           <input
-                              id='toogleA'
-                              type='checkbox'
-                              checked={done}
-                              onChange={onDoneChangeHandler}
-                              className='hidden'
-                           />
-
-                           {/* line */}
-                           <div className='w-10 h-4 bg-gray-500 rounded-lg shadow-inner'></div>
-                           {/* dot */}
-                           <div className='toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0'></div>
-                        </div>
-
-                        {/* label */}
-                        <div className='ml-3 text-gray-700 font-medium'>כן</div>
-                     </label>
-                  </div>
+                  <ToggleButton
+                     title={'האם לבצע'}
+                     onValueChange={onToggleValueChange}
+                  />
+                  <Calendar
+                     onDateChange={onCalendarDateChange}
+                     value={'10/9/2020'}
+                  />
                </form>
             </div>
          </div>
@@ -214,7 +195,10 @@ const TestComponent1 = () => {
                        sm:flex-row justify-center items-center
                        px-2 bg-gray-400 h-full rounded-lg'>
             <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
-               <Calendar onDateChange={(date) => console.log(date)} />
+               <Calendar
+                  onDateChange={onCalendarDateChange}
+                  value={'13/5/2019'}
+               />
             </div>
             <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
                2222222

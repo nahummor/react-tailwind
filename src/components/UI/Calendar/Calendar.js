@@ -10,10 +10,13 @@ import {
    DropDownIcon,
 } from '../Icons/Icons';
 
-const Calendar = ({ onDateChange }) => {
+const Calendar = ({ onDateChange, value }) => {
    const [lines, setLines] = useState(null);
-   const [today, setToday] = useState(moment(new Date()));
+   const [today, setToday] = useState(
+      value ? moment(value, 'DD/MM/yyyy') : moment(new Date())
+   );
    const [selectedYear, setSelectedYear] = useState(moment().year());
+   const [openCalendar, setOpenCalendar] = useState(false);
 
    //    console.log('Init Calendar....');
 
@@ -23,9 +26,6 @@ const Calendar = ({ onDateChange }) => {
       //   let b = moment.duration(1, 'week').humanize();
       //   console.log(moment.months());
       //   console.log(moment.weekdays());
-
-      //   console.log(a);
-      //   console.log(b);
    }, []);
 
    const createButtons = useCallback(
@@ -72,6 +72,7 @@ const Calendar = ({ onDateChange }) => {
                } else {
                   button = (
                      <button
+                        type='button'
                         id={'btn-' + dayNumber}
                         key={dayNumber}
                         className='w-10 mx-2 mt-1 px-1 bg-gray-500'>
@@ -123,7 +124,6 @@ const Calendar = ({ onDateChange }) => {
 
    const onTodayClickHandler = () => {
       setToday(moment());
-      // set month drop list with the today month
    };
 
    const onInputYearChange = (event) => {
@@ -157,90 +157,161 @@ const Calendar = ({ onDateChange }) => {
       );
    };
 
-   return (
-      <div className='bg-white rounded-lg p-1'>
-         <div className='flex flex-row justify-center items-center p-1'>
-            <button
-               onClick={onPreviousMonthHandler}
-               title='חודש קודם'
-               className='mr-2 bg-indigo-500 text-gray-400 h-10
-                                      font-medium rounded-md shadow-md w-6'>
-               <LeftIcon />
-            </button>
-            <p className='bg-gray-500 p-2 rounded-lg text-lg font-medium'>
-               {moment(today).format('DD/MM/YYYY')}
-            </p>
-            <button
-               onClick={onNextMonthHandler}
-               title='חודש הבא'
-               className='ml-2 bg-indigo-500 text-gray-400 h-10
-                                  font-medium rounded-md shadow-md w-6'>
-               <RightIcon />
-            </button>
-         </div>
-         <div className='flex flex-row justify-around text-lg font-bold'>
-            <div>א</div>
-            <div>ב</div>
-            <div>ג</div>
-            <div>ד</div>
-            <div>ה</div>
-            <div>ו</div>
-            <div>ש</div>
-         </div>
-         {lines}
+   const onOpenCalendarClickHandler = () => {
+      setOpenCalendar((prevValue) => !prevValue);
+      document.addEventListener('keydown', onKeyDownHandler);
+   };
 
-         <div className='flex flex-row justify-evenly items-center'>
+   const onKeyDownHandler = (event) => {
+      //   console.log('key: ', event.key, event.which);
+      // ESC = 27
+      if (event.which === 27) {
+         setOpenCalendar(false);
+         document.removeEventListener('keydown', onKeyDownHandler);
+      }
+   };
+
+   const onCancelCalendarHandler = () => {
+      setOpenCalendar(false);
+      document.removeEventListener('keydown', onKeyDownHandler);
+   };
+
+   return (
+      <div className='relative'>
+         <div className='flex flex-row justify-end'>
+            <input
+               value={today.format('DD/MM/yyyy')}
+               type='text'
+               readOnly
+               placeholder='תאריך'
+               className='shadow appearance-none border rounded
+                           py-2 px-3 text-gray-700 leading-tight 
+                           text-right font-semibold w-32 mr-1
+                           focus:outline-none focus:shadow-outline'
+            />
             <button
-               onClick={onTodayClickHandler}
-               className='bg-indigo-500 text-gray-400 h-7 mx-1 mt-1
-                          font-medium rounded-md shadow-md w-24'>
-               היום
+               type='button'
+               onClick={onOpenCalendarClickHandler}
+               onKeyUp={(e) => {
+                  // space = 32
+                  if (e.which === 32) {
+                     // prevent space click the button
+                     e.preventDefault();
+                  }
+               }}
+               className='relative bg-indigo-400 rounded-lg w-1/3 h-full p-2'>
+               <div className='flex flex-row justify-center items-center'>
+                  <DropDownIcon />
+                  <span className='text-md font-semibold text-gray-800'>
+                     תאריך
+                  </span>
+               </div>
             </button>
-            <div className='flex flex-row justify-end items-center'>
+         </div>
+         {openCalendar ? (
+            <button
+               type='button'
+               onClick={onCancelCalendarHandler}
+               tabIndex='-1'
+               className='fixed inset-0
+                          h-full w-full
+                          cursor-default'></button>
+         ) : null}
+
+         <div
+            className={
+               openCalendar
+                  ? 'absolute  bg-white rounded-lg shadow-2xl z-10 right-0 mt-1'
+                  : 'hidden'
+            }>
+            <div className='flex flex-row justify-center items-center p-1'>
                <button
-                  onClick={onYearMinusHandler}
-                  title='חיסור שנה'
-                  className='ml-2 bg-indigo-500 text-gray-400 h-7
-                         font-medium rounded-md shadow-md w-6'>
-                  <MinusIcon />
+                  type='button'
+                  onClick={onPreviousMonthHandler}
+                  title='חודש קודם'
+                  className='mr-2 bg-indigo-500 text-gray-400 h-10
+                                      font-medium rounded-md shadow-md w-6'>
+                  <LeftIcon />
                </button>
+               <p className='bg-gray-500 p-2 rounded-lg text-lg font-medium'>
+                  {moment(today).format('DD/MM/YYYY')}
+               </p>
                <button
-                  onClick={onYearPlusHandler}
-                  title='הוספת שנה'
-                  className='ml-2 mr-1 bg-indigo-500 text-gray-400 h-7
-                         font-medium rounded-md shadow-md w-6'>
-                  <PlusIcon />
+                  type='button'
+                  onClick={onNextMonthHandler}
+                  title='חודש הבא'
+                  className='ml-2 bg-indigo-500 text-gray-400 h-10
+                                  font-medium rounded-md shadow-md w-6'>
+                  <RightIcon />
                </button>
-               <input
-                  type='number'
-                  placeholder='שנה'
-                  value={selectedYear}
-                  onChange={onInputYearChange}
-                  className='border border-gray-400 rounded shadow 
+            </div>
+            <div className='flex flex-row justify-around text-lg font-bold'>
+               <div>א</div>
+               <div>ב</div>
+               <div>ג</div>
+               <div>ד</div>
+               <div>ה</div>
+               <div>ו</div>
+               <div>ש</div>
+            </div>
+            {lines}
+
+            <div className='flex flex-row justify-evenly items-center'>
+               <button
+                  type='button'
+                  onClick={onTodayClickHandler}
+                  className='bg-indigo-500 text-gray-400 h-7 mx-1 mt-1
+                          font-medium rounded-md shadow-md w-24'>
+                  היום
+               </button>
+               <div className='flex flex-row justify-end items-center'>
+                  <button
+                     type='button'
+                     onClick={onYearMinusHandler}
+                     title='חיסור שנה'
+                     className='ml-2 bg-indigo-500 text-gray-400 h-7
+                         font-medium rounded-md shadow-md w-6'>
+                     <MinusIcon />
+                  </button>
+                  <button
+                     type='button'
+                     onClick={onYearPlusHandler}
+                     title='הוספת שנה'
+                     className='ml-2 mr-1 bg-indigo-500 text-gray-400 h-7
+                         font-medium rounded-md shadow-md w-6'>
+                     <PlusIcon />
+                  </button>
+                  <input
+                     type='number'
+                     placeholder='שנה'
+                     value={selectedYear}
+                     onChange={onInputYearChange}
+                     className='border border-gray-400 rounded shadow 
                              h-8 text-right pr-2
                              focus:outline-none focus:border-gray-600 
                              w-16 text-gray-700 font-semibold'
-               />
-            </div>
-            <div className='inline-block relative w-40'>
-               <div
-                  className='pointer-events-none absolute inset-y-0 
-                             flex items-center px-2 text-gray-700'>
-                  <DropDownIcon />
+                  />
                </div>
-               <select
-                  onChange={onMonthChange}
-                  dir='rtl'
-                  value={today.month()}
-                  className='block appearance-none w-full bg-white border border-gray-400 h-8
+               <div className='inline-block relative w-40'>
+                  <div
+                     className='pointer-events-none absolute inset-y-0 
+                             flex items-center px-2 text-gray-700'>
+                     <DropDownIcon />
+                  </div>
+                  <select
+                     onChange={onMonthChange}
+                     dir='rtl'
+                     value={today.month()}
+                     className='block appearance-none w-full bg-white border border-gray-400 h-8
                              hover:border-gray-500 px-2 rounded shadow leading-tight
                              focus:outline-none focus:shadow-outline cursor-pointer'>
-                  {moment.months().map((month, index) => (
-                     <option key={index} value={index}>
-                        {month}
-                     </option>
-                  ))}
-               </select>
+                     {moment.months().map((month, index) => (
+                        <option key={index} value={index}>
+                           {month}
+                        </option>
+                     ))}
+                  </select>
+               </div>
             </div>
          </div>
       </div>

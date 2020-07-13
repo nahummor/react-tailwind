@@ -55,6 +55,7 @@ const DropList = ({
                onKeyUp={(e) => {
                   // space = 32
                   if (e.which === 32) {
+                     // prevent space click the button
                      e.preventDefault();
                   }
                }}
