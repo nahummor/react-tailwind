@@ -10,12 +10,12 @@ import {
    DropDownIcon,
 } from '../Icons/Icons';
 
-const Calendar = () => {
+const Calendar = ({ onDateChange }) => {
    const [lines, setLines] = useState(null);
    const [today, setToday] = useState(moment(new Date()));
    const [selectedYear, setSelectedYear] = useState(moment().year());
 
-   console.log('Init Calendar....');
+   //    console.log('Init Calendar....');
 
    useEffect(() => {
       moment.updateLocale('he', localHe);
@@ -104,6 +104,10 @@ const Calendar = () => {
       },
       [today]
    );
+
+   useEffect(() => {
+      onDateChange(today.format('DD/MM/yyyy'));
+   }, [today, onDateChange]);
 
    useEffect(() => {
       createButtons(today);
@@ -212,9 +216,10 @@ const Calendar = () => {
                   placeholder='שנה'
                   value={selectedYear}
                   onChange={onInputYearChange}
-                  className='border border-gray-400 rounded shadow h-8 text-right
-                          focus:outline-none focus:border-gray-600 
-                          w-16 text-gray-700 font-semibold'
+                  className='border border-gray-400 rounded shadow 
+                             h-8 text-right pr-2
+                             focus:outline-none focus:border-gray-600 
+                             w-16 text-gray-700 font-semibold'
                />
             </div>
             <div className='inline-block relative w-40'>
@@ -226,9 +231,9 @@ const Calendar = () => {
                <select
                   onChange={onMonthChange}
                   dir='rtl'
-                  defaultValue={today.month()}
+                  value={today.month()}
                   className='block appearance-none w-full bg-white border border-gray-400 h-8
-                             hover:border-gray-500 px-4 rounded shadow leading-tight
+                             hover:border-gray-500 px-2 rounded shadow leading-tight
                              focus:outline-none focus:shadow-outline cursor-pointer'>
                   {moment.months().map((month, index) => (
                      <option key={index} value={index}>
