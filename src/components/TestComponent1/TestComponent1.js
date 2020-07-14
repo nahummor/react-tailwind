@@ -45,7 +45,7 @@ const TestComponent1 = () => {
                </p>
             </div>
 
-            <div className='h-2 sm:w-2'></div>
+            <div className='h-full sm:w-2'></div>
 
             <div
                className='p-2 bg-gray-600  h-full sm:h-screen/2 

@@ -7965,6 +7965,10 @@ video {
   cursor: not-allowed;
 }
 
+.cursor-resize {
+  cursor: col-resize;
+}
+
 .block {
   display: block;
 }
@@ -26332,6 +26336,10 @@ video {
 
   .sm\:cursor-not-allowed {
     cursor: not-allowed;
+  }
+
+  .sm\:cursor-resize {
+    cursor: col-resize;
   }
 
   .sm\:block {
@@ -44704,6 +44712,10 @@ video {
     cursor: not-allowed;
   }
 
+  .md\:cursor-resize {
+    cursor: col-resize;
+  }
+
   .md\:block {
     display: block;
   }
@@ -63074,6 +63086,10 @@ video {
     cursor: not-allowed;
   }
 
+  .lg\:cursor-resize {
+    cursor: col-resize;
+  }
+
   .lg\:block {
     display: block;
   }
@@ -81442,6 +81458,10 @@ video {
 
   .xl\:cursor-not-allowed {
     cursor: not-allowed;
+  }
+
+  .xl\:cursor-resize {
+    cursor: col-resize;
   }
 
   .xl\:block {

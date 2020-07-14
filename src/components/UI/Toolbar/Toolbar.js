@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { MenuIcon, XIcon } from '../Icons/Icons';
 import logo from '../../../assets/br7_logo.png';
+import { MenuIcon, XIcon } from '../Icons/Icons';
+import MenuList from './MenuList/MenuList';
 
 const Toolbar = () => {
    const [menuOpen, setMenuOpen] = useState(false);
@@ -54,6 +55,7 @@ const Toolbar = () => {
             className={
                'hidden px-2 py-2 sm:flex sm:flex-row sm:justify-center items-center'
             }>
+            <MenuList />
             <a
                href={'/'}
                className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'>
