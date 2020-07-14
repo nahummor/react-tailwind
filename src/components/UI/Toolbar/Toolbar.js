@@ -5,6 +5,12 @@ import logo from '../../../assets/br7_logo.png';
 import { MenuIcon, XIcon } from '../Icons/Icons';
 import MenuList from './MenuList/MenuList';
 
+const linksData = [
+   { title: 'ראשי', path: '/' },
+   { title: 'טסט 1', path: '/test1' },
+   { title: 'טסט 2', path: '/test2' },
+];
+
 const Toolbar = () => {
    const [menuOpen, setMenuOpen] = useState(false);
 
@@ -15,10 +21,8 @@ const Toolbar = () => {
    return (
       <header className='px-4 bg-gray-800 sm:flex sm:justify-between'>
          <div
-            className='flex 
-                          justify-between
-                          items-center
-                          py-2'>
+            className='flex justify-between
+                       items-center  py-2'>
             <img className='' src={logo} alt='logo' />
 
             <div className='sm:hidden'>
@@ -26,8 +30,9 @@ const Toolbar = () => {
                   onClick={onMenuClickHandler}
                   type='button'
                   className='block text-gray-500 
-                                   hover:text-white 
-                                   focus:text-white focus:outline-none'>
+                             hover:text-white 
+                             focus:text-white
+                             focus:outline-none'>
                   {menuOpen ? <XIcon /> : <MenuIcon />}
                </button>
             </div>
@@ -55,28 +60,28 @@ const Toolbar = () => {
             className={
                'hidden px-2 py-2 sm:flex sm:flex-row sm:justify-center items-center'
             }>
-            <MenuList />
+            <MenuList title={'פעולות'} links={linksData} />
             <a
                href={'/'}
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'>
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'>
                component 1
             </a>
             <a
                href={'/'}
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'>
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'>
                component 2
             </a>
             <NavLink
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'
-               activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1'
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'
+               activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
                exact
                to='/test1'>
                Test 1
             </NavLink>
 
             <NavLink
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1'
-               activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1'
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1 h-8'
+               activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
                exact
                to='/'>
                ראשי
