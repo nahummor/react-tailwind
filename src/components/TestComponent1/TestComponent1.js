@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import './TestComponent1.css';
 import Calendar from '../UI/Calendar/Calendar';
 import ToggleButton from '../UI/ToggleButton/ToggleButton';
+import Tab from '../UI/Tab/Tab';
+import Modal from '../UI/Modal/Modal';
 
 const TestComponent1 = () => {
    const [bikeSelected, setBikeSelected] = useState(false);
@@ -201,12 +203,28 @@ const TestComponent1 = () => {
                />
             </div>
             <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
-               2222222
+               <Tab tabsTitle={['פעולה 1', 'פעולה 2', 'פעולה 3', 'פעולה 4']}>
+                  <div id='tab1'>content 1</div>
+                  <div id='tab2'>
+                     <Calendar
+                        onDateChange={onCalendarDateChange}
+                        value={'12/8/2019'}
+                     />
+                  </div>
+                  <div id='tab3'>content 3</div>
+                  <div id='tab4'>
+                     content 4 Lorem ipsum dolor sit, amet consectetur
+                     adipisicing elit. Earum minus tenetur quis adipisci iste
+                     quisquam unde voluptatem distinctio nesciunt beatae aliquid
+                     illum fuga error eligendi, expedita, est nemo magni odio?
+                  </div>
+               </Tab>
             </div>
             <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
                3333333
             </div>
          </div>
+         <Modal />
       </div>
    );
 };
