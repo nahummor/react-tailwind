@@ -9,6 +9,7 @@ const TestComponent1 = () => {
    const [bikeSelected, setBikeSelected] = useState(false);
    const [likeRun, setLikeRun] = useState(false);
    const [age, setAge] = useState('30');
+   const [openModal, setOpenModal] = useState(false);
 
    const onAgeChangeHandler = (event) => {
       setAge(event.target.value);
@@ -204,7 +205,14 @@ const TestComponent1 = () => {
             </div>
             <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
                <Tab tabsTitle={['פעולה 1', 'פעולה 2', 'פעולה 3', 'פעולה 4']}>
-                  <div id='tab1'>content 1</div>
+                  <div id='tab1'>
+                     <p>content 1</p>
+                     <button
+                        onClick={() => setOpenModal(true)}
+                        className='app-button'>
+                        open modal
+                     </button>
+                  </div>
                   <div id='tab2'>
                      <Calendar
                         onDateChange={onCalendarDateChange}
@@ -224,7 +232,11 @@ const TestComponent1 = () => {
                3333333
             </div>
          </div>
-         <Modal />
+         <Modal
+            show={openModal}
+            onClose={() => setOpenModal(false)}
+            onYes={() => console.log('YES')}
+         />
       </div>
    );
 };
