@@ -4,12 +4,27 @@ import Calendar from '../UI/Calendar/Calendar';
 import ToggleButton from '../UI/ToggleButton/ToggleButton';
 import Tab from '../UI/Tab/Tab';
 import Modal from '../UI/Modal/Modal';
+import AddWorker from '../AddWorker/AddWorker';
+import Person from '../../models/Student';
+import Worker from '../../models/Worker';
 
 const TestComponent1 = () => {
    const [bikeSelected, setBikeSelected] = useState(false);
    const [likeRun, setLikeRun] = useState(false);
    const [age, setAge] = useState('30');
    const [openModal, setOpenModal] = useState(false);
+
+   const worker = new Worker();
+   worker.firstName = 'nahum';
+   worker.lastName = 'Mor';
+   worker.title = 'IT';
+   worker.display();
+   console.log(worker);
+
+   const person = new Person('', '', ['sub 1', 'sub 2']);
+   person.firstName = 'nahum';
+   person.lastName = 'Mor';
+   person.display();
 
    const onAgeChangeHandler = (event) => {
       setAge(event.target.value);
@@ -228,8 +243,8 @@ const TestComponent1 = () => {
                   </div>
                </Tab>
             </div>
-            <div className='bg-red-400 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
-               3333333
+            <div className='bg-blue-200 m-1 rounded-lg p-1 w-full sm:w-1/3 h-full'>
+               <AddWorker />
             </div>
          </div>
          <Modal
