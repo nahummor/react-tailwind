@@ -1,20 +1,33 @@
 import React, { useMemo } from 'react';
-import { useTable } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
 
 const Table = () => {
    const data = useMemo(
       () => [
          {
-            col1: 'Hello',
-            col2: 'World',
+            col1: 'שלום',
+            col2: 'דדון',
+            col3: 15,
          },
          {
-            col1: 'react-table',
-            col2: 'rocks',
+            col1: 'אבי',
+            col2: 'כהן',
+            col3: 27,
          },
          {
-            col1: 'whatever',
-            col2: 'you want',
+            col1: 'דני',
+            col2: 'שמש',
+            col3: 130,
+         },
+         {
+            col1: 'יורם',
+            col2: 'ששון',
+            col3: 12,
+         },
+         {
+            col1: 'שמשון',
+            col2: 'לוי',
+            col3: 45,
          },
       ],
       []
@@ -28,12 +41,14 @@ const Table = () => {
                {
                   Header: 'שם פרטי',
                   accessor: 'col1', // accessor is the "key" in the data
-                  Footer: 'שם פרטי',
                },
                {
                   Header: 'שם משפחה',
                   accessor: 'col2',
-                  Footer: 'שם משפחה',
+               },
+               {
+                  Header: 'מחיר',
+                  accessor: 'col3',
                },
             ],
          },
@@ -41,27 +56,60 @@ const Table = () => {
       []
    );
 
+   const initState = useMemo(
+      () => ({
+         sortBy: [
+            {
+               id: 'col1',
+               desc: false,
+            },
+         ],
+      }),
+      []
+   );
+
    const {
       getTableProps,
       getTableBodyProps,
       headerGroups,
-      footerGroups,
+      //   footerGroups,
       rows,
       prepareRow,
-   } = useTable({ columns, data });
+   } = useTable(
+      {
+         columns,
+         data,
+         initialState: initState,
+      },
+      useSortBy
+   );
 
    return (
       <div className='p-2  flex flex-row justify-center'>
-         <table className='shadow-2xl border-2 border-teal-500'>
+         <table
+            dir='rtl'
+            {...getTableProps()}
+            className='shadow-2xl border-2 border-teal-500'>
             <thead>
                {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                      {headerGroup.headers.map((column) => (
                         <th
-                           {...column.getHeaderProps()}
+                           {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                           )}
                            className='border-b-2 border-red-500 
                                       bg-blue-200 text-gray-700
-                                      font-semibold '>
+                                      font-semibold w-32 text-right
+                                      hover:bg-gray-500'>
+                           {/* Add a sort direction indicator */}
+                           <span>
+                              {column.isSorted
+                                 ? column.isSortedDesc
+                                    ? ' 🔽'
+                                    : ' 🔼'
+                                 : ''}
+                           </span>
                            {column.render('Header')}
                         </th>
                      ))}
@@ -78,11 +126,8 @@ const Table = () => {
                            return (
                               <td
                                  {...cell.getCellProps()}
-                                 style={{
-                                    padding: '10px',
-                                    border: 'solid 1px gray',
-                                    background: 'papayawhip',
-                                 }}>
+                                 className='p-1 border border-solid 
+                                            border-gray-400 text-right'>
                                  {cell.render('Cell')}
                               </td>
                            );
@@ -92,7 +137,7 @@ const Table = () => {
                })}
             </tbody>
 
-            <tfoot>
+            {/* <tfoot>
                {footerGroups.map((group) => (
                   <tr {...group.getFooterGroupProps()}>
                      {group.headers.map((column) => (
@@ -106,7 +151,7 @@ const Table = () => {
                      ))}
                   </tr>
                ))}
-            </tfoot>
+            </tfoot> */}
          </table>
       </div>
    );
