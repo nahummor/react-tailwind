@@ -7,8 +7,8 @@ import MenuList from './MenuList/MenuList';
 
 const linksData = [
    { title: 'ראשי', path: '/' },
-   { title: 'טסט 1', path: '/test1' },
-   { title: 'טסט 2', path: '/test2' },
+   { title: 'Test 1', path: '/test1' },
+   { title: 'טבלה', path: '/table' },
 ];
 
 const Toolbar = () => {
@@ -66,11 +66,13 @@ const Toolbar = () => {
                className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'>
                component 1
             </a>
-            <a
-               href={'/'}
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'>
-               component 2
-            </a>
+            <NavLink
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'
+               activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
+               exact
+               to='/table'>
+               טבלה
+            </NavLink>
             <NavLink
                className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'
                activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'

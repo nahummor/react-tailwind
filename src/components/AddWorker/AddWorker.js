@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 
 import { EditPencilIcon } from '../UI/Icons/Icons';
+import Snackbar from '../UI/Snackbar/Snackbar';
 
 const formSchema = Yup.object().shape({
    firstName: Yup.string().required('שדה חובה').min(2, 'שם פרטי לפחות 2 תוים'),
    lastName: Yup.string().required('שדה חובה').min(2, 'שם משפחה לפחות 2 תוים'),
    title: Yup.string().required('שדה חובה'),
 });
+
 const AddWorker = () => {
+   const [showSnackbar, setShowSnackbar] = useState(false);
    const { register, handleSubmit, errors, formState } = useForm({
       mode: 'onChange',
       resolver: yupResolver(formSchema),
    });
 
    const onAddWorkerHandler = (formData) => {
-      console.log(formData);
+      console.log(formData); // display success message
+      setShowSnackbar(true);
+   };
+
+   const onCloseSnackbarHandler = () => {
+      setShowSnackbar(false);
    };
 
    return (
@@ -121,6 +129,15 @@ const AddWorker = () => {
                </button>
             </div>
          </form>
+         {showSnackbar ? (
+            <Snackbar
+               message={'בוצע בהצלחה'}
+               position={'bottom'}
+               show={showSnackbar}
+               onClose={onCloseSnackbarHandler}
+               time={4000}
+            />
+         ) : null}
       </div>
    );
 };
