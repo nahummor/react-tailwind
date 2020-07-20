@@ -8,26 +8,31 @@ const Table = () => {
             col1: 'שלום',
             col2: 'דדון',
             col3: 15,
+            city: 'באר שבע',
          },
          {
             col1: 'אבי',
             col2: 'כהן',
             col3: 27,
+            city: 'ירושלים',
          },
          {
             col1: 'דני',
             col2: 'שמש',
             col3: 130,
+            city: 'תל אביב',
          },
          {
             col1: 'יורם',
             col2: 'ששון',
             col3: 12,
+            city: 'באר שבע',
          },
          {
             col1: 'שמשון',
             col2: 'לוי',
             col3: 45,
+            city: 'אשקלון',
          },
       ],
       []
@@ -41,14 +46,30 @@ const Table = () => {
                {
                   Header: 'שם פרטי',
                   accessor: 'col1', // accessor is the "key" in the data
+                  Footer: 'שם פרטי',
                },
                {
                   Header: 'שם משפחה',
                   accessor: 'col2',
+                  Footer: 'שם משפחה',
                },
                {
                   Header: 'מחיר',
                   accessor: 'col3',
+                  Footer: (info) => {
+                     const total = useMemo(() => {
+                        return info.rows.reduce(
+                           (sum, row) => row.values.col3 + sum,
+                           0
+                        );
+                     }, [info.rows]);
+                     return <>סה"כ: {total} </>;
+                  },
+               },
+               {
+                  Header: 'עיר',
+                  accessor: 'city',
+                  Footer: 'עיר',
                },
             ],
          },
@@ -72,7 +93,7 @@ const Table = () => {
       getTableProps,
       getTableBodyProps,
       headerGroups,
-      //   footerGroups,
+      footerGroups,
       rows,
       prepareRow,
    } = useTable(
@@ -80,6 +101,7 @@ const Table = () => {
          columns,
          data,
          initialState: initState,
+         disableSortRemove: true,
       },
       useSortBy
    );
@@ -103,6 +125,7 @@ const Table = () => {
                                       font-semibold w-32 text-right
                                       hover:bg-gray-500'>
                            {/* Add a sort direction indicator */}
+                           {column.render('Header')}
                            <span>
                               {column.isSorted
                                  ? column.isSortedDesc
@@ -110,7 +133,6 @@ const Table = () => {
                                     : ' 🔼'
                                  : ''}
                            </span>
-                           {column.render('Header')}
                         </th>
                      ))}
                   </tr>
@@ -137,7 +159,7 @@ const Table = () => {
                })}
             </tbody>
 
-            {/* <tfoot>
+            <tfoot>
                {footerGroups.map((group) => (
                   <tr {...group.getFooterGroupProps()}>
                      {group.headers.map((column) => (
@@ -151,7 +173,7 @@ const Table = () => {
                      ))}
                   </tr>
                ))}
-            </tfoot> */}
+            </tfoot>
          </table>
       </div>
    );
