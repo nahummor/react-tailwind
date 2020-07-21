@@ -6,6 +6,7 @@ import {
    useGlobalFilter,
    useFilters,
    usePagination,
+   useResizeColumns,
 } from 'react-table';
 import GlobalFilter from './GlobalFilter/GlobalFilter';
 import DefaultColumnFilter from './ColumnFilters/DefaultColumnFilter/DefaultColumnFilter';
@@ -66,6 +67,7 @@ export const TableWithPagination = () => {
          {
             Header: 'מסד',
             accessor: 'id', // accessor is the "key" in the data
+            width: 20,
             disableFilters: true,
             disableSortBy: true,
             Footer: (info) => {
@@ -82,6 +84,7 @@ export const TableWithPagination = () => {
          {
             Header: 'מסד משתמש',
             accessor: 'userId',
+            width: 50,
             Filter: SelectColumnFilter,
             filter: 'equal',
          },
@@ -144,6 +147,9 @@ export const TableWithPagination = () => {
       () => ({
          // Let's set up our default Filter UI
          Filter: DefaultColumnFilter,
+         minWidth: 20,
+         width: 150,
+         maxWidth: 400,
       }),
       []
    );
@@ -201,7 +207,8 @@ export const TableWithPagination = () => {
       useFilters, // useFilters!
       useGlobalFilter,
       useSortBy,
-      usePagination
+      usePagination,
+      useResizeColumns
    );
 
    return (
@@ -218,9 +225,10 @@ export const TableWithPagination = () => {
                            {...column.getHeaderProps(
                               column.getSortByToggleProps()
                            )}
+                           style={{ width: column.width }}
                            className='border-b-2 border-red-500 
                                       bg-blue-200 text-gray-700
-                                      font-semibold w-32 text-right
+                                      font-semibold text-right
                                       hover:bg-gray-500'>
                            {column.render('Header')}
                            {/* Add a sort direction indicator */}
