@@ -1,11 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
-import { useTable, useSortBy, useGlobalFilter, useFilters } from 'react-table';
+import {
+   useTable,
+   useSortBy,
+   useGlobalFilter,
+   useFilters,
+   usePagination,
+} from 'react-table';
 import GlobalFilter from './GlobalFilter/GlobalFilter';
 import DefaultColumnFilter from './ColumnFilters/DefaultColumnFilter/DefaultColumnFilter';
 import SelectColumnFilter from './ColumnFilters/SelectColumnFilter/SelectColumnFilter';
 import NumberRangeColumnFilter from './ColumnFilters/NumberRangeColumnFilter/NumberRangeColumnFilter';
-import SliderColumnFilter from './ColumnFilters/SliderColumnFilter/SliderColumnFilter';
+import TablePagination from './TablePagination/TablePagination';
 
 // Define a custom filter filter function!
 function filterGreaterThan(rows, id, filterValue) {
@@ -21,114 +27,101 @@ function filterGreaterThan(rows, id, filterValue) {
 // check, but here, we want to remove the filter if it's not a number
 filterGreaterThan.autoRemove = (val) => typeof val !== 'number';
 
-const Table = () => {
-   const data = useMemo(
-      () => [
-         {
-            col1: 'שלום',
-            col2: 'דדון',
-            age: 22,
-            cost: 15,
-            city: 'באר שבע',
-            remark: 'fgfhh',
-         },
-         {
-            col1: 'אבי',
-            col2: 'כהן',
-            age: 47,
-            cost: 27,
-            city: 'ירושלים',
-            remark: 'ffgjgj',
-         },
-         {
-            col1: 'דני',
-            col2: 'שמש',
-            age: 52,
-            cost: 130,
-            city: 'תל אביב',
-            remark: 'fgjfgj',
-         },
-         {
-            col1: 'יורם',
-            col2: 'ששון',
-            age: 33,
-            cost: 12,
-            city: 'באר שבע',
-            remark: 'fgjgfj',
-         },
-         {
-            col1: 'שמשון',
-            col2: 'לוי',
-            age: 68,
-            cost: 45,
-            city: 'אשקלון',
-            remark: 'dfgjdgjdfgj',
-         },
-      ],
-      []
-   );
+export const TableWithPagination = () => {
+   const [tableData, setTableDate] = useState([]);
+
+   useMemo(() => {
+      const todos = [];
+      const cities = [
+         'באר שבע',
+         'תל אביב',
+         'ירושלים',
+         'ערד',
+         'חיפה',
+         'טבריה',
+         'מודיעין',
+         'אשדוד',
+         'אשקלון',
+         'גן יבנה',
+      ];
+      let x;
+
+      fetch('https://jsonplaceholder.typicode.com/todos')
+         .then((response) => response.json())
+         .then((jsonData) => {
+            jsonData.forEach((todo) => {
+               todo.cost = Math.floor(Math.random() * 1000) + 1; // random number from 1 to 1000
+               x = Math.floor(Math.random() * 9);
+               todo.city = cities[x];
+               todo.completed = todo.completed ? 'כן' : 'לא';
+               todos.push(todo);
+            });
+            console.log(todos[0]);
+            setTableDate([...todos]);
+         });
+   }, []);
 
    const columns = useMemo(
       () => [
          {
-            Header: 'פרטים',
-            Footer: 'פרטים',
-            columns: [
-               {
-                  Header: 'שם פרטי',
-                  accessor: 'col1', // accessor is the "key" in the data
-                  Footer: 'שם פרטי',
-                  filter: 'startWith',
-               },
-               {
-                  Header: 'שם משפחה',
-                  accessor: 'col2',
-                  Footer: 'שם משפחה',
-               },
-               {
-                  Header: 'גיל',
-                  accessor: 'age',
-                  Footer: 'גיל',
-                  Filter: SliderColumnFilter,
-                  //   filter: 'equals',
-                  filter: filterGreaterThan,
-               },
-               {
-                  Header: 'מחיר',
-                  accessor: 'cost',
-                  Filter: NumberRangeColumnFilter,
-                  filter: 'between',
-                  Footer: (info) => {
-                     const total = useMemo(() => {
-                        return info.rows.reduce(
-                           (sum, row) => row.values.cost + sum,
-                           0
-                        );
-                     }, [info.rows]);
-                     return (
-                        <>
-                           סה"כ:
-                           <span className='font-bold underline mr-1'>
-                              &#8362;{total}
-                           </span>
-                        </>
-                     );
-                  },
-               },
-               {
-                  Header: 'עיר',
-                  accessor: 'city',
-                  Footer: 'עיר',
-                  Filter: SelectColumnFilter,
-                  filter: 'includes',
-               },
-               {
-                  Header: 'הערה',
-                  accessor: 'remark',
-                  disableFilters: true,
-                  disableSortBy: true,
-               },
-            ],
+            Header: 'מסד',
+            accessor: 'id', // accessor is the "key" in the data
+            disableFilters: true,
+            disableSortBy: true,
+            Footer: (info) => {
+               const count = useMemo(() => {
+                  return info.rows.length;
+               }, [info.rows]);
+               return (
+                  <>
+                     כמות משתמשים: <span>{count}</span>{' '}
+                  </>
+               );
+            },
+         },
+         {
+            Header: 'מסד משתמש',
+            accessor: 'userId',
+            Filter: SelectColumnFilter,
+            filter: 'equal',
+         },
+         {
+            Header: 'תיאור',
+            accessor: 'title',
+         },
+         {
+            Header: 'מחיר',
+            accessor: 'cost',
+            Filter: NumberRangeColumnFilter,
+            filter: 'between',
+            Footer: (info) => {
+               const total = useMemo(() => {
+                  return info.rows.reduce(
+                     (sum, row) => row.values.cost + sum,
+                     0
+                  );
+               }, [info.rows]);
+               return (
+                  <>
+                     סה"כ:
+                     <span className='font-bold underline mr-1'>
+                        &#8362;{total}
+                     </span>
+                  </>
+               );
+            },
+         },
+         {
+            Header: 'עיר',
+            accessor: 'city',
+            Filter: SelectColumnFilter,
+            filter: 'equal',
+         },
+         {
+            Header: 'הושלם',
+            accessor: 'completed',
+            Filter: SelectColumnFilter,
+            filter: 'includes',
          },
       ],
       []
@@ -142,6 +135,7 @@ const Table = () => {
                desc: false,
             },
          ],
+         pageIndex: 0,
       }),
       []
    );
@@ -176,17 +170,29 @@ const Table = () => {
       getTableProps,
       getTableBodyProps,
       headerGroups,
-      footerGroups,
-      rows,
       prepareRow,
+      footerGroups,
+      //    rows,
+      page, // Instead of using 'rows', we'll use page,
+      // which has only the rows for the active page
       preGlobalFilteredRows,
       state,
       setGlobalFilter,
       visibleColumns,
+
+      canPreviousPage,
+      canNextPage,
+      pageOptions,
+      pageCount,
+      gotoPage,
+      nextPage,
+      previousPage,
+      setPageSize,
+      state: { pageIndex, pageSize },
    } = useTable(
       {
          columns,
-         data,
+         data: tableData,
          defaultColumn, // Be sure to pass the defaultColumn option
          filterTypes,
          initialState: initState,
@@ -194,7 +200,8 @@ const Table = () => {
       },
       useFilters, // useFilters!
       useGlobalFilter,
-      useSortBy
+      useSortBy,
+      usePagination
    );
 
    return (
@@ -235,7 +242,7 @@ const Table = () => {
                   </tr>
                ))}
                <tr>
-                  <th colSpan={visibleColumns.length} className='text-right'>
+                  <th colSpan={visibleColumns.length}>
                      <GlobalFilter
                         preGlobalFilteredRows={preGlobalFilteredRows}
                         globalFilter={state.globalFilter}
@@ -246,7 +253,7 @@ const Table = () => {
             </thead>
 
             <tbody {...getTableBodyProps()}>
-               {rows.map((row) => {
+               {page.map((row) => {
                   prepareRow(row);
                   return (
                      <tr {...row.getRowProps()}>
@@ -255,7 +262,7 @@ const Table = () => {
                               <td
                                  {...cell.getCellProps()}
                                  className='p-1 border border-solid 
-                                            border-gray-400 text-right'>
+                                                  border-gray-400 text-right'>
                                  {cell.render('Cell')}
                               </td>
                            );
@@ -272,17 +279,33 @@ const Table = () => {
                         <td
                            {...column.getFooterProps()}
                            className='border-b-2 border-red-500 
-                                      bg-blue-200 text-gray-700
-                                      font-semibold text-right'>
+                                            bg-blue-200 text-gray-700
+                                            font-semibold text-right'>
                            {column.render('Footer')}
                         </td>
                      ))}
                   </tr>
                ))}
+               <tr>
+                  <td colSpan={columns?.length}>
+                     <TablePagination
+                        gotoPage={gotoPage}
+                        previousPage={previousPage}
+                        nextPage={nextPage}
+                        canPreviousPage={canPreviousPage}
+                        canNextPage={canNextPage}
+                        pageCount={pageCount}
+                        pageIndex={pageIndex}
+                        pageOptions={pageOptions}
+                        pageSize={pageSize}
+                        setPageSize={setPageSize}
+                     />
+                  </td>
+               </tr>
             </tfoot>
          </table>
       </div>
    );
 };
 
-export default Table;
+export default TableWithPagination;
