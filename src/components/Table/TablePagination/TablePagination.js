@@ -20,33 +20,41 @@ const TablePagination = ({
       <div className='text-center bg-gray-200 p-2'>
          <div className='mx-2'>
             <button
-               className='ml-2 font-semibold bg-indigo-200 w-16 
-                              hover:bg-indigo-500 hover:text-white 
-                              p-1 rounded-lg border-b-2 underline'
+               className={
+                  canPreviousPage
+                     ? 'button-pagination'
+                     : 'button-pagination-disable'
+               }
                onClick={() => gotoPage(0)}
                disabled={!canPreviousPage}>
                {'התחלה'}
             </button>
             <button
-               className='ml-2 font-semibold bg-indigo-200 w-16 
-                          hover:bg-indigo-500 hover:text-white 
-                          p-1 rounded-lg border-b-2 underline'
+               className={
+                  canPreviousPage
+                     ? 'button-pagination'
+                     : 'button-pagination-disable'
+               }
                onClick={() => previousPage()}
                disabled={!canPreviousPage}>
                {'הקודם'}
             </button>
             <button
-               className='ml-2 font-semibold bg-indigo-200 
-               hover:bg-indigo-500 hover:text-white w-16
-               p-1 rounded-lg border-b-2 underline'
+               className={
+                  canNextPage
+                     ? 'button-pagination'
+                     : 'button-pagination-disable'
+               }
                onClick={() => nextPage()}
                disabled={!canNextPage}>
                {'הבא'}
             </button>
             <button
-               className='font-semibold bg-indigo-200 w-16
-               hover:bg-indigo-500 hover:text-white 
-               p-1 rounded-lg border-b-2 underline'
+               className={
+                  canNextPage
+                     ? 'button-pagination'
+                     : 'button-pagination-disable'
+               }
                onClick={() => gotoPage(pageCount - 1)}
                disabled={!canNextPage}>
                {'סוף'}
@@ -70,7 +78,7 @@ const TablePagination = ({
                   gotoPage(page);
                }}
                className='w-12 border-b-2 border-solid 
-               border-teal-900 outline-none focus:bg-gray-200'
+                          border-teal-900 outline-none focus:bg-gray-200'
             />
             <select
                value={pageSize}

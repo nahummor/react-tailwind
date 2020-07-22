@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 
 import {
    useTable,
@@ -6,7 +6,6 @@ import {
    useGlobalFilter,
    useFilters,
    usePagination,
-   useResizeColumns,
 } from 'react-table';
 import GlobalFilter from './GlobalFilter/GlobalFilter';
 import DefaultColumnFilter from './ColumnFilters/DefaultColumnFilter/DefaultColumnFilter';
@@ -31,7 +30,9 @@ filterGreaterThan.autoRemove = (val) => typeof val !== 'number';
 export const TableWithPagination = () => {
    const [tableData, setTableDate] = useState([]);
 
-   useMemo(() => {
+   useEffect(() => {
+      console.log('Fetch data from server ........');
+
       const todos = [];
       const cities = [
          'באר שבע',
@@ -45,6 +46,7 @@ export const TableWithPagination = () => {
          'אשקלון',
          'גן יבנה',
       ];
+
       let x;
 
       fetch('https://jsonplaceholder.typicode.com/todos')
@@ -57,9 +59,9 @@ export const TableWithPagination = () => {
                todo.completed = todo.completed ? 'כן' : 'לא';
                todos.push(todo);
             });
-            console.log(todos[0]);
             setTableDate([...todos]);
          });
+      // eslint-disable-next-line
    }, []);
 
    const columns = useMemo(
@@ -67,7 +69,7 @@ export const TableWithPagination = () => {
          {
             Header: 'מסד',
             accessor: 'id', // accessor is the "key" in the data
-            width: 20,
+            width: '10%',
             disableFilters: true,
             disableSortBy: true,
             Footer: (info) => {
@@ -76,7 +78,7 @@ export const TableWithPagination = () => {
                }, [info.rows]);
                return (
                   <>
-                     כמות משתמשים: <span>{count}</span>{' '}
+                     <span>{count}</span> תוצאות
                   </>
                );
             },
@@ -84,7 +86,7 @@ export const TableWithPagination = () => {
          {
             Header: 'מסד משתמש',
             accessor: 'userId',
-            width: 50,
+            width: '10%',
             Filter: SelectColumnFilter,
             filter: 'equal',
          },
@@ -95,6 +97,7 @@ export const TableWithPagination = () => {
          {
             Header: 'מחיר',
             accessor: 'cost',
+            width: '15%',
             Filter: NumberRangeColumnFilter,
             filter: 'between',
             Footer: (info) => {
@@ -117,12 +120,14 @@ export const TableWithPagination = () => {
          {
             Header: 'עיר',
             accessor: 'city',
+            width: '10%',
             Filter: SelectColumnFilter,
             filter: 'equal',
          },
          {
             Header: 'הושלם',
             accessor: 'completed',
+            width: '10%',
             Filter: SelectColumnFilter,
             filter: 'includes',
          },
@@ -134,7 +139,7 @@ export const TableWithPagination = () => {
       () => ({
          sortBy: [
             {
-               id: 'col1',
+               id: 'userId',
                desc: false,
             },
          ],
@@ -147,9 +152,6 @@ export const TableWithPagination = () => {
       () => ({
          // Let's set up our default Filter UI
          Filter: DefaultColumnFilter,
-         minWidth: 20,
-         width: 150,
-         maxWidth: 400,
       }),
       []
    );
@@ -204,11 +206,10 @@ export const TableWithPagination = () => {
          initialState: initState,
          disableSortRemove: true,
       },
-      useFilters, // useFilters!
+      useFilters,
       useGlobalFilter,
       useSortBy,
-      usePagination,
-      useResizeColumns
+      usePagination
    );
 
    return (
@@ -216,7 +217,7 @@ export const TableWithPagination = () => {
          <table
             dir='rtl'
             {...getTableProps()}
-            className='shadow-2xl border-2 border-teal-500'>
+            className='shadow-2xl border-2 border-teal-500 w-5/6'>
             <thead>
                {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
@@ -240,7 +241,7 @@ export const TableWithPagination = () => {
                                  : ''}
                            </span>
                            {/* Render the columns filter UI */}
-                           <div>
+                           <div className={column.canFilter ? '' : 'w-0'}>
                               {column.canFilter
                                  ? column.render('Filter')
                                  : null}

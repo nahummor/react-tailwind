@@ -643,6 +643,49 @@ video {
   font-weight: 700;
 }
 
+.button-pagination {
+  --bg-opacity: 1;
+  background-color: #c3dafe;
+  background-color: rgba(195, 218, 254, var(--bg-opacity));
+  font-weight: 600;
+  margin-left: 0.5rem;
+  width: 4rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  text-decoration: underline;
+}
+
+.button-pagination:hover {
+  --bg-opacity: 1;
+  background-color: #667eea;
+  background-color: rgba(102, 126, 234, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.button-pagination:focus {
+  outline: 0;
+}
+
+.button-pagination-disable {
+  --bg-opacity: 1;
+  background-color: #c3dafe;
+  background-color: rgba(195, 218, 254, var(--bg-opacity));
+  font-weight: 600;
+  margin-left: 0.5rem;
+  width: 4rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  text-decoration: underline;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-pagination-disable:focus {
+  outline: 0;
+}
+
 .form-label {
   display: block;
   --text-opacity: 1;
