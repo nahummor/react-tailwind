@@ -4,6 +4,7 @@ import MainComponent from '../MainComponent/MainComponent';
 import TestComponent1 from '../TestComponent1/TestComponent1';
 import Table from '../Table/Table';
 import TableWithPagination from '../Table/TableWithPagination';
+import OrdersTable from '../Table/OrdersTable';
 
 const AppRoutes = () => {
    return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
             path='/tableWithPagination'
             component={TableWithPagination}
          />
+         <Route exact path='/ordersTable' component={OrdersTable} />
       </Switch>
    );
 };

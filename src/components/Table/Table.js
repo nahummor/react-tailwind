@@ -199,7 +199,8 @@ const Table = () => {
 
    useEffect(() => {
       console.log('Filter: ', state.filters);
-   }, [state.filters]);
+      console.log('state: ', state);
+   }, [state.filters, state]);
 
    return (
       <div className='p-2 flex flex-row justify-center'>
