@@ -7,7 +7,10 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
         "moment": "^2.27.0",
+        "mongodb": "^3.5.9",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-hook-form": "^6.0.6",
@@ -22,7 +25,8 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "build:css": "postcss src/styles/tailwind.css -o src/styles/app.css",
-        "watch:css": "postcss src/styles/tailwind.css -o src/styles/app.css -w"
+        "watch:css": "postcss src/styles/tailwind.css -o src/styles/app.css -w",
+        "start:server": "nodemon ./backend/server.js"
     },
     "eslintConfig": {
         "extends": "react-app"
