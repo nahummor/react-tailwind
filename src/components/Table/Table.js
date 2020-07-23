@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 
 import { useTable, useSortBy, useGlobalFilter, useFilters } from 'react-table';
 import GlobalFilter from './GlobalFilter/GlobalFilter';
@@ -196,6 +196,10 @@ const Table = () => {
       useGlobalFilter,
       useSortBy
    );
+
+   useEffect(() => {
+      console.log('Filter: ', state.filters);
+   }, [state.filters]);
 
    return (
       <div className='p-2 flex flex-row justify-center'>

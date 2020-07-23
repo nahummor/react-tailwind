@@ -184,7 +184,6 @@ export const TableWithPagination = () => {
       page, // Instead of using 'rows', we'll use page,
       // which has only the rows for the active page
       preGlobalFilteredRows,
-      state,
       setGlobalFilter,
       visibleColumns,
 
@@ -196,7 +195,7 @@ export const TableWithPagination = () => {
       nextPage,
       previousPage,
       setPageSize,
-      state: { pageIndex, pageSize },
+      state: { pageIndex, pageSize, globalFilter },
    } = useTable(
       {
          columns,
@@ -254,7 +253,7 @@ export const TableWithPagination = () => {
                   <th colSpan={visibleColumns.length}>
                      <GlobalFilter
                         preGlobalFilteredRows={preGlobalFilteredRows}
-                        globalFilter={state.globalFilter}
+                        globalFilter={globalFilter}
                         setGlobalFilter={setGlobalFilter}
                      />
                   </th>
