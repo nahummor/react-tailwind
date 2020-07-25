@@ -1,21 +1,33 @@
 import React, { useMemo, useCallback, useState, useEffect } from 'react';
-import { useTable, usePagination, useSortBy } from 'react-table';
+import moment from 'moment';
+import {
+   useTable,
+   usePagination,
+   useSortBy,
+   useGlobalFilter,
+} from 'react-table';
 import TablePagination from './TablePagination/TablePagination';
+import GlobalFilter from './GlobalFilter/GlobalFilter';
 
 const OrdersTable = () => {
    const [loading, setLoading] = useState(false);
    const [data, setData] = useState([]);
-   const [totalOrdersNumber, setTotalOrdersNumber] = useState(0);
+   const [controlledPageCount, setControlledPageCount] = useState(0);
 
    const columns = useMemo(
       () => [
          {
             Header: 'תאריך הזמנה',
             accessor: 'orderDate',
+            width: '10%',
+            Cell: (orderDate) => {
+               return moment(orderDate.value).format('DD/MM/yyyy');
+            },
          },
          {
             Header: 'מספר הזמנה',
             accessor: 'orderNumber',
+            width: '10%',
          },
          {
             Header: 'תיאור העבודה',
@@ -24,16 +36,32 @@ const OrdersTable = () => {
          {
             Header: 'מספר חוזה',
             accessor: 'contractNumber',
+            width: '10%',
          },
          {
             Header: 'סעיף תקציבי',
             accessor: 'budgetItem',
+            width: '10%',
          },
          {
             Header: 'קבלן מבצע',
             accessor: 'doneByConstructor',
+            width: '15%',
          },
       ],
+      []
+   );
+
+   const initState = useMemo(
+      () => ({
+         sortBy: [
+            {
+               id: 'orderNumber',
+               desc: false,
+            },
+         ],
+         pageIndex: 0,
+      }),
       []
    );
 
@@ -42,8 +70,10 @@ const OrdersTable = () => {
       getTableBodyProps,
       headerGroups,
       prepareRow,
-      footerGroups,
       page,
+      preGlobalFilteredRows,
+      setGlobalFilter,
+
       visibleColumns,
       canPreviousPage,
       canNextPage,
@@ -53,16 +83,20 @@ const OrdersTable = () => {
       nextPage,
       previousPage,
       setPageSize,
-      state: { pageIndex, pageSize, sortBy },
+      state: { pageIndex, pageSize, sortBy, globalFilter },
    } = useTable(
       {
          columns,
          data,
+         initialState: initState,
          disableSortRemove: true,
          manualPagination: true,
+         manualGlobalFilter: true,
          manualFilters: true,
          manualSortBy: true,
+         pageCount: controlledPageCount,
       },
+      useGlobalFilter,
       useSortBy,
       usePagination
    );
@@ -78,9 +112,10 @@ const OrdersTable = () => {
          )
             .then((response) => response.json())
             .then((jsonData) => {
-               console.log(jsonData);
                setData([...jsonData.orders]);
-               setTotalOrdersNumber(jsonData.totalOrdersNumber);
+               setControlledPageCount(
+                  Math.ceil(jsonData.totalOrdersNumber / pageSize)
+               );
                setLoading(false);
             });
       },
@@ -88,9 +123,15 @@ const OrdersTable = () => {
    );
 
    useEffect(() => {
-      fetchData(pageIndex, pageSize, sortBy[0].id, sortBy[0].desc, '');
+      let filter = '';
+
+      if (globalFilter) {
+         filter = globalFilter;
+      }
+
+      fetchData(pageIndex, pageSize, sortBy[0].id, sortBy[0].desc, filter);
       // eslint-disable-next-line
-   }, [fetchData, pageIndex, pageSize, sortBy]);
+   }, [fetchData, pageIndex, pageSize, sortBy, globalFilter]);
 
    return (
       <div className='p-2 flex flex-col justify-center items-center'>
@@ -131,6 +172,15 @@ const OrdersTable = () => {
                      ))}
                   </tr>
                ))}
+               <tr>
+                  <th colSpan={visibleColumns.length}>
+                     <GlobalFilter
+                        preGlobalFilteredRows={preGlobalFilteredRows}
+                        globalFilter={globalFilter}
+                        setGlobalFilter={setGlobalFilter}
+                     />
+                  </th>
+               </tr>
             </thead>
             <tbody {...getTableBodyProps()}>
                {page.map((row) => {
@@ -150,6 +200,18 @@ const OrdersTable = () => {
                      </tr>
                   );
                })}
+               <tr>
+                  {loading ? (
+                     <td colSpan={visibleColumns.length}>טוען.....</td>
+                  ) : (
+                     <td colSpan={visibleColumns.length}>
+                        <span className='font-semibold'>
+                           מציג {page.length} מתוך{' '}
+                           {controlledPageCount * pageSize} תוצאות
+                        </span>
+                     </td>
+                  )}
+               </tr>
             </tbody>
             <tfoot>
                <tr>

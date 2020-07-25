@@ -98,6 +98,13 @@ export const TableWithPagination = () => {
             Header: 'מחיר',
             accessor: 'cost',
             width: '15%',
+            Cell: (cost) => {
+               return (
+                  <>
+                     <span className='font-semibold'>{cost.value} &#8362;</span>
+                  </>
+               );
+            },
             Filter: NumberRangeColumnFilter,
             filter: 'between',
             Footer: (info) => {

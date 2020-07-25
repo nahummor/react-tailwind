@@ -98,6 +98,13 @@ const Table = () => {
                   accessor: 'cost',
                   Filter: NumberRangeColumnFilter,
                   filter: 'between',
+                  Cell: (cost) => {
+                     return (
+                        <>
+                           <span>{cost.value} &#8362;</span>
+                        </>
+                     );
+                  },
                   Footer: (info) => {
                      const total = useMemo(() => {
                         return info.rows.reduce(
