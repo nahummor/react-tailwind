@@ -5,9 +5,17 @@ import ToggleButton from '../UI/ToggleButton/ToggleButton';
 import Tab from '../UI/Tab/Tab';
 import Modal from '../UI/Modal/Modal';
 import AddWorker from '../AddWorker/AddWorker';
+import List from '../UI/List/List';
 
 import Person from '../../models/Student';
 import Worker from '../../models/Worker';
+
+const listData = [
+   { itemTitle: 'item 0', value: 0 },
+   { itemTitle: 'item 1', value: 1 },
+   { itemTitle: 'item 2', value: 2 },
+   { itemTitle: 'item 3', value: 3 },
+];
 
 const TestComponent1 = () => {
    const [bikeSelected, setBikeSelected] = useState(false);
@@ -235,7 +243,9 @@ const TestComponent1 = () => {
                         value={'12/8/2019'}
                      />
                   </div>
-                  <div id='tab3'>content 3</div>
+                  <div id='tab3'>
+                     <List listData={listData} selectedItemIndex={2} />
+                  </div>
                   <div id='tab4'>
                      content 4 Lorem ipsum dolor sit, amet consectetur
                      adipisicing elit. Earum minus tenetur quis adipisci iste

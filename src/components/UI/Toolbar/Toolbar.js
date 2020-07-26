@@ -9,6 +9,8 @@ const linksData = [
    { title: 'ראשי', path: '/' },
    { title: 'Test 1', path: '/test1' },
    { title: 'טבלה', path: '/table' },
+   { title: '2 טבלה', path: '/tableWithPagination' },
+   { title: 'הזמנות', path: '/ordersTable' },
 ];
 
 const Toolbar = () => {
@@ -62,28 +64,28 @@ const Toolbar = () => {
             }>
             <MenuList title={'פעולות'} links={linksData} />
             <NavLink
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1 h-8'
                activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
                exact
                to='/ordersTable'>
                הזמנות
             </NavLink>
             <NavLink
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1 h-8'
                activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
                exact
                to='/tableWithPagination'>
                טבלה 2
             </NavLink>
             <NavLink
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1 h-8'
                activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
                exact
                to='/table'>
                טבלה
             </NavLink>
             <NavLink
-               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1  h-8'
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1 h-8'
                activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
                exact
                to='/test1'>

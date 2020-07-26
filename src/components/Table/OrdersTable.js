@@ -113,9 +113,7 @@ const OrdersTable = () => {
             .then((response) => response.json())
             .then((jsonData) => {
                setData([...jsonData.orders]);
-               setControlledPageCount(
-                  Math.ceil(jsonData.totalOrdersNumber / pageSize)
-               );
+               setControlledPageCount(Math.ceil(jsonData.totalOrdersNumber));
                setLoading(false);
             });
       },
@@ -206,8 +204,7 @@ const OrdersTable = () => {
                   ) : (
                      <td colSpan={visibleColumns.length}>
                         <span className='font-semibold'>
-                           מציג {page.length} מתוך{' '}
-                           {controlledPageCount * pageSize} תוצאות
+                           מציג {page.length} מתוך {controlledPageCount} תוצאות
                         </span>
                      </td>
                   )}
