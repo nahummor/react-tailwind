@@ -23,15 +23,17 @@ const MainComponent = () => {
                     items-center sm:flex-row p-2'>
          <Card title='Main Title' subtitle='sub title'>
             <div className='flex flex-col'>
-               <button
-                  id='btn-1'
-                  onClick={onClickHandler}
-                  className='bg-facebook-blue hover:bg-blue-700 text-white 
-                             font-bold py-2 px-4 rounded mt-4 shadow-md'>
-                  Button 1
-               </button>
+               <Tooltip title='פעולה חדשה' placement='left'>
+                  <button
+                     id='btn-1'
+                     onClick={onClickHandler}
+                     className='bg-facebook-blue hover:bg-blue-700 text-white 
+                                font-bold py-2 px-4 rounded mt-4 shadow-md w-full'>
+                     Button 1
+                  </button>
+               </Tooltip>
 
-               <Tooltip title='הוספה של פריט חדש'>
+               <Tooltip title='הוספה של פריט חדש' placement='top'>
                   <button
                      id='btn-2'
                      onClick={onClickHandler}
@@ -41,15 +43,17 @@ const MainComponent = () => {
                   </button>
                </Tooltip>
 
-               <button
-                  id='btn-3'
-                  onClick={onClickHandler}
-                  className='app-button'>
-                  <div className='flex flex-row justify-center items-center'>
-                     <EditPencilIcon />
-                     <span className='mx-2'> Button 3</span>
-                  </div>
-               </button>
+               <Tooltip title='הוספה של פריט חדש' placement='bottom'>
+                  <button
+                     id='btn-3'
+                     onClick={onClickHandler}
+                     className='app-button'>
+                     <div className='flex flex-row justify-center items-center'>
+                        <EditPencilIcon />
+                        <span className='mx-2'> Button 3</span>
+                     </div>
+                  </button>
+               </Tooltip>
             </div>
          </Card>
 
@@ -93,10 +97,11 @@ const MainComponent = () => {
                data={['נותק', 'נעול', 'פעיל']}
                onValueChange={onListValueChange}
             />
-
-            <button className='app-button'>
-               <span>שמירה</span> 😄
-            </button>
+            <Tooltip title='שמירת פרטים' placement='left'>
+               <button className='app-button'>
+                  <span>שמירה</span> 😄
+               </button>
+            </Tooltip>
          </Card>
 
          <ImageCard
@@ -108,12 +113,15 @@ const MainComponent = () => {
                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam,
                deleniti sunt. Neque culpa, quas cupiditate laborum minus facilis
             </p>
-            <button className='app-button'>
-               <div className='flex flex-row justify-center items-center'>
-                  <CameraIcon />
-                  <span className='mx-2'>שמירה</span>
-               </div>
-            </button>
+
+            <Tooltip title='שמירת פרטים' placement='top'>
+               <button className='app-button'>
+                  <div className='flex flex-row justify-center items-center'>
+                     <CameraIcon />
+                     <span className='mx-2'>שמירה</span>
+                  </div>
+               </button>
+            </Tooltip>
          </ImageCard>
       </div>
    );

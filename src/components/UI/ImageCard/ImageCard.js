@@ -21,6 +21,7 @@ const ImageCard = ({ title, imageUrl, children }) => {
                Hot Deal
             </div>
          </div>
+
          <div className='p-2 bg-white'>
             <h4 className='mb-1 text-lg text-center text-gray-900 font-semibold bg-gray-200 border rounded-lg'>
                {title}
