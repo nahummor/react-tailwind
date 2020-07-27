@@ -4,6 +4,7 @@ import Card from '../UI/Card/Card';
 import ImageCard from '../UI/ImageCard/ImageCard';
 import { CameraIcon, EditPencilIcon } from '../UI/Icons/Icons';
 import DropList from '../UI/DropList/DropList';
+import Tooltip from '../UI/Tooltip/Tooltip';
 
 const MainComponent = () => {
    const onClickHandler = (event) => {
@@ -30,13 +31,15 @@ const MainComponent = () => {
                   Button 1
                </button>
 
-               <button
-                  id='btn-2'
-                  onClick={onClickHandler}
-                  className='bg-ios-green hover:bg-blue-700 text-white 
-                             font-bold py-2 px-4 rounded mt-4 shadow-md'>
-                  Button 2
-               </button>
+               <Tooltip title='הוספה של פריט חדש'>
+                  <button
+                     id='btn-2'
+                     onClick={onClickHandler}
+                     className='bg-ios-green hover:bg-blue-700 text-white 
+                             font-bold py-2 px-4 rounded mt-4 shadow-md w-full'>
+                     Button 2
+                  </button>
+               </Tooltip>
 
                <button
                   id='btn-3'

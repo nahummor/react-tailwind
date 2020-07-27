@@ -53,6 +53,10 @@ const TestComponent1 = () => {
       console.log(value);
    };
 
+   const onListItemChangeHandler = (itemValue) => {
+      console.log('Item value selected: ', itemValue);
+   };
+
    return (
       <div className='flex flex-col p-2 h-full'>
          <div className='flex flex-col h-full sm:flex-row justify-around'>
@@ -244,7 +248,11 @@ const TestComponent1 = () => {
                      />
                   </div>
                   <div id='tab3'>
-                     <List listData={listData} selectedItemIndex={2} />
+                     <List
+                        listData={listData}
+                        selectedItemIndex={2}
+                        onItemChange={onListItemChangeHandler}
+                     />
                   </div>
                   <div id='tab4'>
                      content 4 Lorem ipsum dolor sit, amet consectetur
