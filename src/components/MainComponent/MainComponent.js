@@ -20,7 +20,7 @@ const MainComponent = () => {
       <div
          dir='rtl'
          className='flex flex-col justify-around  
-                    items-center sm:flex-row p-2'>
+                    items-center sm:flex-row p-2 h-full'>
          <Card title='Main Title' subtitle='sub title'>
             <div className='flex flex-col'>
                <Tooltip title='פעולה חדשה' placement='left'>

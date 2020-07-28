@@ -15,9 +15,16 @@ const ImageCard = ({ title, imageUrl, children }) => {
                alt={'new place'}
                className='absolute h-full w-full object-cover'
             />
+            {/* transform -rotate-45  w-2/5
+            
+            */}
             <div
-               className='absolute w-2/5 font-bold transform -rotate-45  pl-5 badge'
-               style={{ top: '1rem', left: '-2rem' }}>
+               className='absolute font-bold px-10 badge top-0 left-0'
+               style={{
+                  transform:
+                     'rotateZ(-45deg) translateX(-2.5rem) translateY(-0.5rem)',
+                  transformOrigin: 'center',
+               }}>
                Hot Deal
             </div>
          </div>
