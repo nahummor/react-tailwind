@@ -8,6 +8,7 @@ import MenuList from './MenuList/MenuList';
 const linksData = [
    { title: 'ראשי', path: '/' },
    { title: 'Test 1', path: '/test1' },
+   { title: 'Test 2', path: '/test2' },
    { title: 'טבלה', path: '/table' },
    { title: '2 טבלה', path: '/tableWithPagination' },
    { title: 'הזמנות', path: '/ordersTable' },
@@ -83,6 +84,13 @@ const Toolbar = () => {
                exact
                to='/table'>
                טבלה
+            </NavLink>
+            <NavLink
+               className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1 h-8'
+               activeClassName='text-white font-semibold bg-gray-600 rounded px-2 py-1  h-8'
+               exact
+               to='/test2'>
+               Test 2
             </NavLink>
             <NavLink
                className='block text-white font-semibold hover:bg-gray-600 rounded px-2 py-1 h-8'

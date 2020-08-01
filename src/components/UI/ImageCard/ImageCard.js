@@ -22,7 +22,7 @@ const ImageCard = ({ title, imageUrl, children }) => {
                className='absolute font-bold px-10 badge top-0 left-0'
                style={{
                   transform:
-                     'rotateZ(-45deg) translateX(-2.5rem) translateY(-0.5rem)',
+                     'rotate(-45deg) translateX(-2.5rem) translateY(-0.5rem)',
                   transformOrigin: 'center',
                }}>
                Hot Deal

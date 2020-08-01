@@ -1,26 +1,49 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import classnames from 'classnames';
+// import Classes from './Modal.module.css';
 
 const Modal = ({ show, onClose, onYes }) => {
+   const [openModal, setOpenModal] = useState(false);
+
    const onYesHandler = () => {
-      onYes();
-      onClose();
+      setOpenModal(false);
+
+      setTimeout(() => {
+         onYes();
+         onClose();
+      }, 300);
    };
 
    const onCloseModal = () => {
-      onClose();
-      document.removeEventListener('keydown', onKeyDownHandler);
+      setOpenModal(false);
+
+      setTimeout(() => {
+         onClose();
+         document.removeEventListener('keydown', onKeyDownHandler);
+      }, 300);
    };
 
    const onKeyDownHandler = (event) => {
       //   console.log('key: ', event.key, event.which);
       // ESC = 27
       if (event.which === 27) {
-         onClose();
-         document.removeEventListener('keydown', onKeyDownHandler);
+         setOpenModal(false);
+
+         setTimeout(() => {
+            onClose();
+            document.removeEventListener('keydown', onKeyDownHandler);
+         }, 300);
       }
    };
 
    document.addEventListener('keydown', onKeyDownHandler);
+
+   useEffect(() => {
+      setTimeout(() => {
+         setOpenModal(show);
+         console.log('show modal....');
+      }, 10);
+   }, [show]);
 
    useEffect(() => {
       return () => {
@@ -30,12 +53,26 @@ const Modal = ({ show, onClose, onYes }) => {
       // eslint-disable-next-line
    }, []);
 
-   return show ? (
-      <div className='fixed inset-0 h-full w-full z-50 flex flex-row justify-center'>
+   return (
+      <div
+         className={classnames(
+            'fixed inset-0 h-full w-full z-50 flex flex-row justify-center',
+            { hidden: !show, block: show }
+         )}>
+         {/* <div
+            onClick={onCloseModal}
+            className='fixed inset-0 bg-black opacity-75'></div> */}
+
          <div
             onClick={onCloseModal}
-            className='fixed inset-0 bg-black opacity-75'></div>
-         <div className='fixed p-2 bg-white w-10/12 md:w-3/12 h-48 top-1/3 rounded-lg'>
+            className={
+               'fixed inset-0 bg-black transition-opacity duration-300 ease-linear'
+            }
+            style={openModal ? { opacity: 0.75 } : { opacity: 0 }}></div>
+         <div
+            className='fixed p-2 bg-white w-10/12 md:w-3/12 h-48 top-1/3 rounded-lg 
+                       transition-opacity duration-300 ease-linear'
+            style={openModal ? { opacity: 1 } : { opacity: 0 }}>
             <p className='text-center font-semibold text-xl'>הודעת מערכת</p>
             <p className='text-center font-medium text-xl mt-4'>
                ? האם לבצע את הפעולה
@@ -56,7 +93,7 @@ const Modal = ({ show, onClose, onYes }) => {
             </div>
          </div>
       </div>
-   ) : null;
+   );
 };
 
 export default Modal;

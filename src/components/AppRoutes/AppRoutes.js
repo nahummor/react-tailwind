@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import MainComponent from '../MainComponent/MainComponent';
 import TestComponent1 from '../TestComponent1/TestComponent1';
+import TestComponent2 from '../TestComponent2/TestComponent2';
 import Table from '../Table/Table';
 import TableWithPagination from '../Table/TableWithPagination';
 import OrdersTable from '../Table/OrdersTable';
@@ -11,6 +12,7 @@ const AppRoutes = () => {
       <Switch>
          <Route exact path='/' component={MainComponent} />
          <Route exact path='/test1' component={TestComponent1} />
+         <Route exact path='/test2' component={TestComponent2} />
          <Route exact path='/table' component={Table} />
          <Route
             exact
