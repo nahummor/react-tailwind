@@ -73,6 +73,34 @@ exports.isOrderNumberExist = (req, res, next) => {
         });
 }
 
+/**get orders by page for test with React query */
+exports.getOrdersByPageV2 = async (req, res, next) => {
+    const page = +req.query.page;
+    const rowsPerPage = 10;
+    const rowsToSkip = page * rowsPerPage;
+    const orders = [];
+
+    const totalOrdersNumber = await db.getDb()
+        .collection('orders')
+        .find()
+        .count();
+
+    await db.getDb()
+        .collection('orders')
+        .find()
+        .sort({
+            orderNumber: 1
+        })
+        .skip(rowsToSkip)
+        .limit(rowsPerPage)
+        .forEach(order => orders.push(order));
+
+    res.status(200).json({
+        orders: orders,
+        totalOrdersNumber: totalOrdersNumber
+    });
+}
+
 /**
  * get orders by page and rowsPerPage
  */

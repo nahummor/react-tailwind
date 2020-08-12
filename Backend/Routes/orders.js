@@ -25,4 +25,10 @@ router.get('/isOrderNumberExist/:orderNumber', ordersController.isOrderNumberExi
  */
 router.get('/perPage/:page/:rowsPerPage/:sortBy/:sortDirection', ordersController.getOrdersByPage);
 
+/**
+ * get orders by page for React query test
+ * GET /api/orders/
+ */
+router.get('/', ordersController.getOrdersByPageV2);
+
 module.exports = router;
