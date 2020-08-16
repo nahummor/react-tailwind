@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const HttpError = require('./models/http-error');
 const db = require('./dbInit');
 
-const ordersRoutes = require('./routes/orders');
-
+const ordersRoutes = require('./Routes/orders');
+const todoRoutes = require('./Routes/todo');
 
 const app = express();
 
@@ -40,6 +40,7 @@ app.use(bodyParser.json());
  * Express routes
  */
 app.use('/api/orders', ordersRoutes);
+app.use('/api/todo', todoRoutes);
 
 // display error
 // for unsupported route

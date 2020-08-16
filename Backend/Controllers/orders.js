@@ -97,7 +97,9 @@ exports.getOrdersByPageV2 = async (req, res, next) => {
 
     res.status(200).json({
         orders: orders,
-        totalOrdersNumber: totalOrdersNumber
+        count: totalOrdersNumber,
+        next: page < Math.ceil(totalOrdersNumber / rowsPerPage) - 1 ? true : false,
+        previous: page > 0 ? true : false
     });
 }
 
