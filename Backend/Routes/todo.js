@@ -13,4 +13,10 @@ const todoController = require('../Controllers/todo')
  */
 router.post('/', todoController.addNewTodo);
 
+/**
+ * get todo list
+ * GET /api/todo
+ */
+router.get('/', todoController.getTodoList);
+
 module.exports = router;

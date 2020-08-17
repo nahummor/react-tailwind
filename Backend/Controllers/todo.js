@@ -23,7 +23,11 @@ exports.addNewTodo = (req, res, next) => {
         .insertOne(newTodo)
         .then(result => {
             const ans = {
-                todoId: result.insertedId,
+                todo: {
+                    id: result.insertedId,
+                    todo,
+                    userName
+                },
                 insertedCount: result.insertedCount,
                 n: result.result.n,
                 ok: result.result.ok
@@ -41,4 +45,17 @@ exports.addNewTodo = (req, res, next) => {
                 error: error
             });
         })
+};
+
+exports.getTodoList = async (req, res, next) => {
+    const todoList = [];
+
+    await db.getDb()
+        .collection('todo')
+        .find()
+        .forEach(todo => todoList.push(todo));
+
+    return res.status(200).json({
+        todoList
+    });
 };
