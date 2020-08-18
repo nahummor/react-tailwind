@@ -19,4 +19,16 @@ router.post('/', todoController.addNewTodo);
  */
 router.get('/', todoController.getTodoList);
 
+/**
+ * delete todo
+ * DELETE /api/todo
+ */
+router.delete('/', todoController.deleteTodo);
+
+/**
+ * update todo
+ * PUT /api/todo
+ */
+router.put('/', todoController.updateTodo);
+
 module.exports = router;

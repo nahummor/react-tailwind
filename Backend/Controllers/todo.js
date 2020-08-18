@@ -24,7 +24,7 @@ exports.addNewTodo = (req, res, next) => {
         .then(result => {
             const ans = {
                 todo: {
-                    id: result.insertedId,
+                    _id: result.insertedId,
                     todo,
                     userName
                 },
@@ -58,4 +58,56 @@ exports.getTodoList = async (req, res, next) => {
     return res.status(200).json({
         todoList
     });
+};
+
+exports.deleteTodo = (req, res, next) => {
+    const todoId = req.query.todoId;
+
+    db.getDb()
+        .collection('todo')
+        .deleteOne({
+            _id: new ObjectID(todoId)
+        })
+        .then(result => {
+            return res.status(200).json({
+                todoId: todoId,
+                result: result.result
+            });
+        }).catch(error => {
+            console.error('Error occurred on delete ToDo: ', error);
+
+            res.status(400).json({
+                message: 'delete ToDo error occurred',
+                error: error
+            });
+        })
+};
+
+exports.updateTodo = (req, res, next) => {
+    const todoId = req.body.todo._id; // {_id: '', todo:'' , useName: ''}
+    const todo = {
+        ...req.body.todo
+    };
+    delete todo._id;
+
+    db.getDb()
+        .collection('todo')
+        .updateOne({
+            _id: new ObjectID(todoId)
+        }, {
+            $set: {
+                ...todo
+            }
+        })
+        .then(result => {
+            res.status(200).json({
+                result: result.result
+            });
+        })
+        .catch(error => {
+            res.status(400).json({
+                message: 'Update ToDo error occurred',
+                error: error
+            });
+        });
 };
