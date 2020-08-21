@@ -88,7 +88,8 @@ exports.updateTodo = (req, res, next) => {
     const todo = {
         ...req.body.todo
     };
-    delete todo._id;
+    // delete todo._id;
+    Reflect.deleteProperty(todo, '_id');
 
     db.getDb()
         .collection('todo')
